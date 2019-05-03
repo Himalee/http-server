@@ -13,15 +13,17 @@ public class WebServer {
         prepareResponse();
     }
 
-    public CommunicationChannel communicationChannel() {
+    private CommunicationChannel communicationChannel() {
         return serverSocketManager.communicationChannel();
     }
 
-    public void prepareResponse() throws IOException {
+    private void prepareResponse() throws IOException {
         OutputStream output = communicationChannel().getOutput();
-        String statusLine = "HTTP/1.1 200 OK\r\n";
-        output.write(statusLine.getBytes("ASCII"));
-        output.flush();
+       if (serverSocketManager.communicationChannel().getRequest().contains("simple_get")) {
+           String statusLine = "HTTP/1.1 200 OK\r\n";
+           output.write(statusLine.getBytes("ASCII"));
+           output.flush();
+       }
         output.close();
     }
 }

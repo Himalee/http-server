@@ -4,9 +4,11 @@ public class MockServerSocketManager implements SocketManager {
 
     private boolean connectCalled = false;
     private ByteArrayOutputStream output;
+    private String request;
 
-    public MockServerSocketManager(ByteArrayOutputStream output) {
+    public MockServerSocketManager(String request, ByteArrayOutputStream output) {
         this.output = output;
+        this.request = request;
     }
 
     public void connect(int port) {
@@ -18,6 +20,7 @@ public class MockServerSocketManager implements SocketManager {
     }
 
     public CommunicationChannel communicationChannel() {
-        return new CommunicationChannel(output);
+        return new CommunicationChannel(request, output);
     }
+
 }

@@ -14,7 +14,8 @@ public class WebServerTest {
 
     @Before
     public void setUp() throws IOException {
-        mockServerSocketManager = new MockServerSocketManager(output);
+        String simpleGetRequest = "GET /simple_get HTTP/1.1";
+        mockServerSocketManager = new MockServerSocketManager(simpleGetRequest, output);
         WebServer webServer = new WebServer(mockServerSocketManager);
         webServer.start(port);
     }
@@ -25,7 +26,7 @@ public class WebServerTest {
     }
 
     @Test
-    public void startWebServer_200ResponseWithAnyUrl() {
+    public void startWebServer_200ResponseWithSimpleGetUrl() {
         Assert.assertThat(output.toString(), containsString("HTTP/1.1 200 OK"));
     }
 }
