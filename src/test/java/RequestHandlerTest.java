@@ -11,7 +11,7 @@ public class RequestHandlerTest {
     public void outputStream_readRequest() throws IOException {
         RequestHandler requestHandler = new RequestHandler();
         String myString = "hello world";
-        InputStream request = new ByteArrayInputStream( myString.getBytes());
+        InputStream request = new ByteArrayInputStream(myString.getBytes());
 
         Assert.assertEquals("hello world", requestHandler.read(request));
     }
