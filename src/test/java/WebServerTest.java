@@ -10,7 +10,7 @@ public class WebServerTest {
 
     private int port = 1234;
     private MockServerSocketManager mockServerSocketManager;
-    private RequestHandler requestHandler;
+    private RequestHandler requestHandler = new RequestHandler();
     private OutputStream output = new ByteArrayOutputStream();
 
     @Before
@@ -18,7 +18,6 @@ public class WebServerTest {
         String simpleGetRequest = "GET /simple_get HTTP/1.1";
         InputStream input = new ByteArrayInputStream(simpleGetRequest.getBytes());
         mockServerSocketManager = new MockServerSocketManager(input, output);
-        requestHandler = new RequestHandler();
         WebServer webServer = new WebServer(mockServerSocketManager, requestHandler);
         webServer.start(port);
     }
