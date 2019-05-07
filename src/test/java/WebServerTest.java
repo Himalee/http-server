@@ -12,13 +12,14 @@ public class WebServerTest {
     private MockServerSocketManager mockServerSocketManager;
     private RequestHandler requestHandler = new RequestHandler();
     private OutputStream output = new ByteArrayOutputStream();
+    private ResponseHandler responseHandler = new ResponseHandler();
 
     @Before
     public void setUp() throws IOException {
         String simpleGetRequest = "GET /simple_get HTTP/1.1";
         InputStream input = new ByteArrayInputStream(simpleGetRequest.getBytes());
         mockServerSocketManager = new MockServerSocketManager(input, output);
-        WebServer webServer = new WebServer(mockServerSocketManager, requestHandler);
+        WebServer webServer = new WebServer(mockServerSocketManager, requestHandler, responseHandler);
         webServer.start(port);
     }
 
