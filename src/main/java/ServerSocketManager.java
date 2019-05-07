@@ -9,12 +9,7 @@ public class ServerSocketManager implements SocketManager {
     public void connect(int port) throws IOException {
         ServerSocket serverSocket = new ServerSocket(port);
         Socket socket = serverSocket.accept();
-        InputStream input = socket.getInputStream();
-        InputStreamReader inputStreamReader = new InputStreamReader(input);
-        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-        String request = bufferedReader.readLine();
-
-        communicationChannel = new CommunicationChannel(request, socket.getOutputStream());
+        communicationChannel = new CommunicationChannel(socket.getInputStream(), socket.getOutputStream());
     }
 
     public CommunicationChannel communicationChannel() {

@@ -3,12 +3,12 @@ import java.io.*;
 public class MockServerSocketManager implements SocketManager {
 
     private boolean connectCalled = false;
-    private ByteArrayOutputStream output;
-    private String request;
+    private OutputStream output;
+    private InputStream input;
 
-    public MockServerSocketManager(String request, ByteArrayOutputStream output) {
+    public MockServerSocketManager(InputStream input, OutputStream output) {
         this.output = output;
-        this.request = request;
+        this.input = input;
     }
 
     public void connect(int port) {
@@ -20,7 +20,6 @@ public class MockServerSocketManager implements SocketManager {
     }
 
     public CommunicationChannel communicationChannel() {
-        return new CommunicationChannel(request, output);
+        return new CommunicationChannel(input, output);
     }
-
 }

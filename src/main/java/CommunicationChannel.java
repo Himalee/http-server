@@ -1,12 +1,13 @@
+import java.io.InputStream;
 import java.io.OutputStream;
 
 public class CommunicationChannel {
 
     private final OutputStream output;
-    private final String request;
+    private final InputStream input;
 
-    public CommunicationChannel(String request, OutputStream output) {
-        this.request = request;
+    public CommunicationChannel(InputStream input, OutputStream output) {
+        this.input = input;
         this.output = output;
     }
 
@@ -14,7 +15,7 @@ public class CommunicationChannel {
         return output;
     }
 
-    public String getRequest() {
-        return request;
+    public InputStream getInput() {
+        return input;
     }
 }
