@@ -6,7 +6,7 @@ public class WebServer {
     private RequestHandler requestHandler;
     private ResponseHandler responseHandler;
     private static final String RESPONSE_STATUS_CODE_200 = "HTTP/1.1 200 OK\n";
-    private static final String SIMPLE_GET_URL = "simple_get";
+    private static final String SIMPLE_GET_URL = "GET /simple_get HTTP/1.1";
 
     public WebServer(SocketManager serverSocketManager, RequestHandler requestHandler, ResponseHandler responseHandler) {
         this.serverSocketManager = serverSocketManager;
