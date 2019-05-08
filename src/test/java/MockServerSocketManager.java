@@ -2,6 +2,7 @@ import java.io.*;
 
 public class MockServerSocketManager implements SocketManager {
 
+    private boolean listenCalled = false;
     private boolean connectCalled = false;
     private OutputStream output;
     private InputStream input;
@@ -11,8 +12,16 @@ public class MockServerSocketManager implements SocketManager {
         this.input = input;
     }
 
-    public void connect(int port) {
+    public void listen(int port) {
+        listenCalled = true;
+    }
+
+    public void connect() {
         connectCalled = true;
+    }
+
+    public boolean wasListenCalled() {
+        return listenCalled;
     }
 
     public boolean wasConnectCalled() {

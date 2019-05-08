@@ -24,6 +24,11 @@ public class WebServerTest {
     }
 
     @Test
+    public void startWebServer_listenForConnections() {
+        Assert.assertTrue(mockServerSocketManager.wasListenCalled());
+    }
+
+    @Test
     public void startWebServer_checkConnection() {
         Assert.assertTrue(mockServerSocketManager.wasConnectCalled());
     }
