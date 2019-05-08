@@ -10,7 +10,7 @@ public class ResponseHandlerTest {
         ResponseHandler responseHandler = new ResponseHandler();
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         String responseMessage = "hello world";
-        responseHandler.prepare(output, responseMessage);
+        responseHandler.respond(output, responseMessage);
         byte[] byteArray = output.toByteArray();
         Assert.assertEquals("hello world", new String(byteArray));
     }

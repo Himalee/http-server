@@ -11,11 +11,11 @@ public class CommunicationChannel {
         this.output = output;
     }
 
-    public OutputStream getOutput() {
+    public OutputStream getOutputStream() {
         return output;
     }
 
-    public InputStream getInput() {
+    public InputStream getInputStream() {
         return input;
     }
 }

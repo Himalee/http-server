@@ -15,23 +15,28 @@ public class WebServer {
     }
 
     public void start(int port) throws IOException {
-        serverSocketManager.connect(port);
-        prepareResponse();
+        serverSocketManager.listen(port);
+        serverSocketManager.connect();
+        respond();
     }
 
     private CommunicationChannel communicationChannel() {
         return serverSocketManager.communicationChannel();
     }
 
-    private void prepareResponse() throws IOException {
-        OutputStream output = communicationChannel().getOutput();
+    private void respond() throws IOException {
+        OutputStream output = communicationChannel().getOutputStream();
        if (request().contains(SIMPLE_GET_URL)) {
-           responseHandler.prepare(output, RESPONSE_STATUS_CODE_200);
+           responseHandler.respond(output, RESPONSE_STATUS_CODE_200);
        }
-        output.close();
+       closeSocket(output);
     }
 
     private String request() throws IOException {
-       return requestHandler.read(communicationChannel().getInput());
+       return requestHandler.read(communicationChannel().getInputStream());
+    }
+
+    private void closeSocket(OutputStream outputStream) throws IOException {
+        outputStream.close();
     }
 }
