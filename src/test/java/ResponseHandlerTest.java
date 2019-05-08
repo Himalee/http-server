@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class ResponseHandlerTest {
     @Test
-    public void outputStream_writeResponseMessage() throws IOException {
+    public void outputStreamWriteResponseMessage() throws IOException {
         ResponseHandler responseHandler = new ResponseHandler();
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         String responseMessage = "hello world";

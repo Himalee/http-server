@@ -8,7 +8,7 @@ import java.io.InputStream;
 public class RequestHandlerTest {
 
     @Test
-    public void outputStream_readRequest() throws IOException {
+    public void outputStreamReadRequest() throws IOException {
         RequestHandler requestHandler = new RequestHandler();
         String myString = "hello world";
         InputStream request = new ByteArrayInputStream(myString.getBytes());

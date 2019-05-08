@@ -24,17 +24,17 @@ public class WebServerTest {
     }
 
     @Test
-    public void startWebServer_listenForConnections() {
+    public void startWebServerListenForConnections() {
         Assert.assertTrue(mockServerSocketManager.wasListenCalled());
     }
 
     @Test
-    public void startWebServer_checkConnection() {
+    public void startWebServerCheckConnection() {
         Assert.assertTrue(mockServerSocketManager.wasConnectCalled());
     }
 
     @Test
-    public void startWebServer_200ResponseWithSimpleGetUrl() {
+    public void startWebServerGet200ResponseWithSimpleGetUrl() {
         Assert.assertThat(output.toString(), containsString("HTTP/1.1 200 OK"));
     }
 }
