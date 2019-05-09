@@ -1,15 +1,11 @@
-import java.io.*;
-
 public class MockServerSocketManager implements SocketManager {
 
     private boolean listenCalled = false;
     private boolean connectCalled = false;
-    private OutputStream output;
-    private InputStream input;
+    private CommunicationChannelInterface communicationChannel;
 
-    public MockServerSocketManager(InputStream input, OutputStream output) {
-        this.output = output;
-        this.input = input;
+    public MockServerSocketManager(CommunicationChannelInterface communicationChannel) {
+        this.communicationChannel = communicationChannel;
     }
 
     public void listen(int port) {
@@ -28,7 +24,7 @@ public class MockServerSocketManager implements SocketManager {
         return connectCalled;
     }
 
-    public CommunicationChannel communicationChannel() {
-        return new CommunicationChannel(input, output);
+    public CommunicationChannelInterface communicationChannel() {
+        return communicationChannel;
     }
 }

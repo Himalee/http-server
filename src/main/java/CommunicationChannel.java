@@ -1,7 +1,7 @@
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class CommunicationChannel {
+public class CommunicationChannel implements CommunicationChannelInterface {
 
     private final OutputStream output;
     private final InputStream input;

@@ -16,25 +16,29 @@ public class WebServer {
 
     public void start(int port) throws IOException {
         serverSocketManager.listen(port);
+        acceptConnections();
+    }
+
+    private void acceptConnections() throws IOException {
         serverSocketManager.connect();
         respond();
     }
 
-    private CommunicationChannel communicationChannel() {
+    private CommunicationChannelInterface communicationChannel() {
         return serverSocketManager.communicationChannel();
     }
 
     private void respond() throws IOException {
         OutputStream output = communicationChannel().getOutputStream();
-       if (request().contains(SIMPLE_GET_URL)) {
-           responseBuilder = new ResponseBuilder();
-           responseHandler.respond(output, responseBuilder.okayWithEmptyBody());
-       }
-       closeSocket(output);
+        if (request().contains(SIMPLE_GET_URL)) {
+            responseBuilder = new ResponseBuilder();
+            responseHandler.respond(output, responseBuilder.okayWithEmptyBody());
+        }
+        closeSocket(output);
     }
 
     private String request() throws IOException {
-       return requestHandler.read(communicationChannel().getInputStream());
+        return requestHandler.read(communicationChannel().getInputStream());
     }
 
     private void closeSocket(OutputStream outputStream) throws IOException {

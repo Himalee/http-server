@@ -11,15 +11,14 @@ public class WebServerTest {
     private int port = 1234;
     private MockServerSocketManager mockServerSocketManager;
     private RequestHandler requestHandler = new RequestHandler();
-    private OutputStream output = new ByteArrayOutputStream();
+    private CommunicationChannelInterface mockCommunicationChannel = new MockCommunicationChannel();
     private ResponseHandler responseHandler = new ResponseHandler();
+    private WebServer webServer;
 
     @Before
     public void setUp() throws IOException {
-        String simpleGetRequest = "GET /simple_get HTTP/1.1";
-        InputStream input = new ByteArrayInputStream(simpleGetRequest.getBytes());
-        mockServerSocketManager = new MockServerSocketManager(input, output);
-        WebServer webServer = new WebServer(mockServerSocketManager, requestHandler, responseHandler);
+        mockServerSocketManager = new MockServerSocketManager(mockCommunicationChannel);
+        webServer = new WebServer(mockServerSocketManager, requestHandler, responseHandler);
         webServer.start(port);
     }
 
@@ -35,6 +34,7 @@ public class WebServerTest {
 
     @Test
     public void startWebServerGet200ResponseWithSimpleGetUrl() {
-        Assert.assertThat(output.toString(), containsString("HTTP/1.1 200 OK"));
+        OutputStream response = mockServerSocketManager.communicationChannel().getOutputStream();
+        Assert.assertThat(response.toString(), containsString("HTTP/1.1 200 OK"));
     }
 }
