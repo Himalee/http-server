@@ -4,7 +4,7 @@ import java.net.Socket;
 
 public class ServerSocketManager implements SocketManager {
 
-    private CommunicationChannelInterface communicationChannel;
+    private CommunicationChannel serverCommunicationChannel;
     private ServerSocket serverSocket;
 
     public void listen(int port) throws IOException {
@@ -13,10 +13,11 @@ public class ServerSocketManager implements SocketManager {
 
     public void connect() throws IOException {
         Socket socket = serverSocket.accept();
-        communicationChannel = new CommunicationChannel(socket.getInputStream(), socket.getOutputStream());
+        serverCommunicationChannel = new ServerCommunicationChannel(socket.getInputStream(), socket.getOutputStream());
     }
 
-    public CommunicationChannelInterface communicationChannel() {
-        return communicationChannel;
+    public CommunicationChannel communicationChannel() {
+        return serverCommunicationChannel;
     }
 }
+

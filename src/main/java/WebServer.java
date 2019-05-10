@@ -28,7 +28,7 @@ public class WebServer {
         respond();
     }
 
-    private CommunicationChannelInterface communicationChannel() {
+    private CommunicationChannel communicationChannel() {
         return serverSocketManager.communicationChannel();
     }
 

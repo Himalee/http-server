@@ -2,9 +2,9 @@ public class MockServerSocketManager implements SocketManager {
 
     private boolean listenCalled = false;
     private boolean connectCalled = false;
-    private CommunicationChannelInterface communicationChannel;
+    private CommunicationChannel communicationChannel;
 
-    public MockServerSocketManager(CommunicationChannelInterface communicationChannel) {
+    public MockServerSocketManager(CommunicationChannel communicationChannel) {
         this.communicationChannel = communicationChannel;
     }
 
@@ -24,7 +24,7 @@ public class MockServerSocketManager implements SocketManager {
         return connectCalled;
     }
 
-    public CommunicationChannelInterface communicationChannel() {
+    public CommunicationChannel communicationChannel() {
         return communicationChannel;
     }
 }

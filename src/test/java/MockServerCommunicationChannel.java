@@ -3,7 +3,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class MockCommunicationChannel implements CommunicationChannelInterface {
+public class MockServerCommunicationChannel implements CommunicationChannel {
 
     private OutputStream output = new ByteArrayOutputStream();
 
