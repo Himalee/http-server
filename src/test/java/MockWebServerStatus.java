@@ -1,4 +1,4 @@
-public class MockServerStatus implements ServerStatusInterface {
+public class MockWebServerStatus implements ServerStatus {
 
     private boolean keepAcceptingConnections = true;
     private int connectionsCounter = 0;

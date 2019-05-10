@@ -6,10 +6,10 @@ public class WebServer {
     private RequestHandler requestHandler;
     private ResponseHandler responseHandler;
     private ResponseBuilder responseBuilder;
-    private ServerStatusInterface serverStatus;
+    private ServerStatus serverStatus;
     private static final String SIMPLE_GET_REQUEST = "GET /simple_get HTTP/1.1";
 
-    public WebServer(SocketManager serverSocketManager, RequestHandler requestHandler, ResponseHandler responseHandler, ServerStatusInterface serverStatus) {
+    public WebServer(SocketManager serverSocketManager, RequestHandler requestHandler, ResponseHandler responseHandler, ServerStatus serverStatus) {
         this.serverSocketManager = serverSocketManager;
         this.requestHandler = requestHandler;
         this.responseHandler = responseHandler;

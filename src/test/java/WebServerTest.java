@@ -13,13 +13,13 @@ public class WebServerTest {
     private RequestHandler requestHandler = new RequestHandler();
     private CommunicationChannelInterface mockCommunicationChannel = new MockCommunicationChannel();
     private ResponseHandler responseHandler = new ResponseHandler();
-    private ServerStatusInterface mockServerStatus = new MockServerStatus();
+    private ServerStatus mockWebServerStatus = new MockWebServerStatus();
     private WebServer webServer;
 
     @Before
     public void setUp() throws IOException {
         mockServerSocketManager = new MockServerSocketManager(mockCommunicationChannel);
-        webServer = new WebServer(mockServerSocketManager, requestHandler, responseHandler, mockServerStatus);
+        webServer = new WebServer(mockServerSocketManager, requestHandler, responseHandler, mockWebServerStatus);
         webServer.start(port);
     }
 
