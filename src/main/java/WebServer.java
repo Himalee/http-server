@@ -7,7 +7,7 @@ public class WebServer {
     private ResponseHandler responseHandler;
     private ResponseBuilder responseBuilder;
     private ServerStatusInterface serverStatus;
-    private static final String SIMPLE_GET_URL = "GET /simple_get HTTP/1.1";
+    private static final String SIMPLE_GET_REQUEST = "GET /simple_get HTTP/1.1";
 
     public WebServer(SocketManager serverSocketManager, RequestHandler requestHandler, ResponseHandler responseHandler, ServerStatusInterface serverStatus) {
         this.serverSocketManager = serverSocketManager;
@@ -34,7 +34,7 @@ public class WebServer {
 
     private void respond() throws IOException {
         OutputStream output = communicationChannel().getOutputStream();
-        if (request().contains(SIMPLE_GET_URL)) {
+        if (request().contains(SIMPLE_GET_REQUEST)) {
             responseBuilder = new ResponseBuilder();
             responseHandler.respond(output, responseBuilder.okayWithEmptyBody());
         }
