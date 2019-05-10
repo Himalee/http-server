@@ -5,7 +5,8 @@ public class ServerRunner {
         SocketManager serverSocketManager = new ServerSocketManager();
         RequestHandler requestHandler = new RequestHandler();
         ResponseHandler responseHandler = new ResponseHandler();
-        WebServer webServer = new WebServer(serverSocketManager, requestHandler, responseHandler);
+        ServerStatusInterface serverStatus = new ServerStatus();
+        WebServer webServer = new WebServer(serverSocketManager, requestHandler, responseHandler, serverStatus);
         webServer.start(5000);
     }
 }

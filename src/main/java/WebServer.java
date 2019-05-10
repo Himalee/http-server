@@ -6,17 +6,21 @@ public class WebServer {
     private RequestHandler requestHandler;
     private ResponseHandler responseHandler;
     private ResponseBuilder responseBuilder;
+    private ServerStatusInterface serverStatus;
     private static final String SIMPLE_GET_URL = "GET /simple_get HTTP/1.1";
 
-    public WebServer(SocketManager serverSocketManager, RequestHandler requestHandler, ResponseHandler responseHandler) {
+    public WebServer(SocketManager serverSocketManager, RequestHandler requestHandler, ResponseHandler responseHandler, ServerStatusInterface serverStatus) {
         this.serverSocketManager = serverSocketManager;
         this.requestHandler = requestHandler;
         this.responseHandler = responseHandler;
+        this.serverStatus = serverStatus;
     }
 
     public void start(int port) throws IOException {
         serverSocketManager.listen(port);
-        acceptConnections();
+        while (serverStatus.acceptConnections()) {
+            acceptConnections();
+        }
     }
 
     private void acceptConnections() throws IOException {
