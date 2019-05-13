@@ -9,7 +9,7 @@ public class WebServer {
     private ServerStatus serverStatus;
     private CommunicationChannel serverCommunicationChannel;
     private static final String SIMPLE_GET_REQUEST = "GET /simple_get HTTP/1.1";
-    private static final String SIMPLE_HEAD_REQUEST = "HEAD /simple_get HTTP/1.1";
+    private static final String SIMPLE_HEAD_REQUEST = "HEAD";
 
     public WebServer(SocketManager serverSocketManager, RequestHandler requestHandler, ResponseHandler responseHandler, ServerStatus serverStatus) {
         this.serverSocketManager = serverSocketManager;
@@ -30,13 +30,10 @@ public class WebServer {
         OutputStream output = serverCommunicationChannel.getOutputStream();
         responseBuilder = new ResponseBuilder();
         String request = request();
-        switch(request) {
-            case SIMPLE_GET_REQUEST:
-                responseHandler.respond(output, responseBuilder.okayWithEmptyBody());
-                break;
-            case SIMPLE_HEAD_REQUEST:
-                responseHandler.respond(output, responseBuilder.okayWithNoBody());
-                break;
+        if (request.equals(SIMPLE_GET_REQUEST)) {
+            responseHandler.respond(output, responseBuilder.okayWithEmptyBody());
+        } else if (request.contains(SIMPLE_HEAD_REQUEST)) {
+            responseHandler.respond(output, responseBuilder.okayWithNoBody());
         }
         closeSocket(output);
     }
