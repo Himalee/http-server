@@ -4,20 +4,15 @@ import java.net.Socket;
 
 public class ServerSocketManager implements SocketManager {
 
-    private CommunicationChannel serverCommunicationChannel;
     private ServerSocket serverSocket;
 
     public void listen(int port) throws IOException {
         serverSocket = new ServerSocket(port);
     }
 
-    public void connect() throws IOException {
+    public CommunicationChannel acceptConnection() throws IOException {
         Socket socket = serverSocket.accept();
-        serverCommunicationChannel = new ServerCommunicationChannel(socket.getInputStream(), socket.getOutputStream());
-    }
-
-    public CommunicationChannel communicationChannel() {
-        return serverCommunicationChannel;
+        return new ServerCommunicationChannel(socket.getInputStream(), socket.getOutputStream());
     }
 }
 

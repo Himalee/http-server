@@ -29,13 +29,8 @@ public class WebServerTest {
     }
 
     @Test
-    public void startWebServerCheckConnection() {
-        Assert.assertTrue(mockServerSocketManager.wasConnectCalled());
-    }
-
-    @Test
     public void startWebServerGet200ResponseWithSimpleGetUrl() {
-        OutputStream response = mockServerSocketManager.communicationChannel().getOutputStream();
+        OutputStream response = mockServerSocketManager.acceptConnection().getOutputStream();
         Assert.assertThat(response.toString(), containsString("HTTP/1.1 200 OK"));
     }
 }

@@ -1,7 +1,6 @@
 public class MockServerSocketManager implements SocketManager {
 
     private boolean listenCalled = false;
-    private boolean connectCalled = false;
     private CommunicationChannel communicationChannel;
 
     public MockServerSocketManager(CommunicationChannel communicationChannel) {
@@ -12,19 +11,11 @@ public class MockServerSocketManager implements SocketManager {
         listenCalled = true;
     }
 
-    public void connect() {
-        connectCalled = true;
+    public CommunicationChannel acceptConnection() {
+        return communicationChannel;
     }
 
     public boolean wasListenCalled() {
         return listenCalled;
-    }
-
-    public boolean wasConnectCalled() {
-        return connectCalled;
-    }
-
-    public CommunicationChannel communicationChannel() {
-        return communicationChannel;
     }
 }

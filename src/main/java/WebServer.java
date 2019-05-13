@@ -7,6 +7,7 @@ public class WebServer {
     private ResponseHandler responseHandler;
     private ResponseBuilder responseBuilder;
     private ServerStatus serverStatus;
+    private CommunicationChannel serverCommunicationChannel;
     private static final String SIMPLE_GET_REQUEST = "GET /simple_get HTTP/1.1";
 
     public WebServer(SocketManager serverSocketManager, RequestHandler requestHandler, ResponseHandler responseHandler, ServerStatus serverStatus) {
@@ -19,21 +20,13 @@ public class WebServer {
     public void start(int port) throws IOException {
         serverSocketManager.listen(port);
         while (serverStatus.acceptConnections()) {
-            acceptConnections();
+            respond();
         }
     }
 
-    private void acceptConnections() throws IOException {
-        serverSocketManager.connect();
-        respond();
-    }
-
-    private CommunicationChannel communicationChannel() {
-        return serverSocketManager.communicationChannel();
-    }
-
     private void respond() throws IOException {
-        OutputStream output = communicationChannel().getOutputStream();
+        serverCommunicationChannel = serverSocketManager.acceptConnection();
+        OutputStream output = serverCommunicationChannel.getOutputStream();
         if (request().contains(SIMPLE_GET_REQUEST)) {
             responseBuilder = new ResponseBuilder();
             responseHandler.respond(output, responseBuilder.okayWithEmptyBody());
@@ -42,7 +35,7 @@ public class WebServer {
     }
 
     private String request() throws IOException {
-        return requestHandler.read(communicationChannel().getInputStream());
+        return requestHandler.read(serverCommunicationChannel.getInputStream());
     }
 
     private void closeSocket(OutputStream outputStream) throws IOException {
