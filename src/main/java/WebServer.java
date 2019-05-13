@@ -9,6 +9,7 @@ public class WebServer {
     private ServerStatus serverStatus;
     private CommunicationChannel serverCommunicationChannel;
     private static final String SIMPLE_GET_REQUEST = "GET /simple_get HTTP/1.1";
+    private static final String SIMPLE_HEAD_REQUEST = "HEAD /simple_get HTTP/1.1";
 
     public WebServer(SocketManager serverSocketManager, RequestHandler requestHandler, ResponseHandler responseHandler, ServerStatus serverStatus) {
         this.serverSocketManager = serverSocketManager;
@@ -27,9 +28,15 @@ public class WebServer {
     private void respond() throws IOException {
         serverCommunicationChannel = serverSocketManager.acceptConnection();
         OutputStream output = serverCommunicationChannel.getOutputStream();
-        if (request().contains(SIMPLE_GET_REQUEST)) {
-            responseBuilder = new ResponseBuilder();
-            responseHandler.respond(output, responseBuilder.okayWithEmptyBody());
+        responseBuilder = new ResponseBuilder();
+        String request = request();
+        switch(request) {
+            case SIMPLE_GET_REQUEST:
+                responseHandler.respond(output, responseBuilder.okayWithEmptyBody());
+                break;
+            case SIMPLE_HEAD_REQUEST:
+                responseHandler.respond(output, responseBuilder.okayWithNoBody());
+                break;
         }
         closeSocket(output);
     }

@@ -6,13 +6,17 @@ import java.io.OutputStream;
 public class MockServerCommunicationChannel implements CommunicationChannel {
 
     private OutputStream output = new ByteArrayOutputStream();
+    private String request;
+
+    public MockServerCommunicationChannel(String request) {
+        this.request = request;
+    }
 
     public OutputStream getOutputStream() {
         return output;
     }
 
     public InputStream getInputStream() {
-        String simpleGetRequest = "GET /simple_get HTTP/1.1";
-        return new ByteArrayInputStream(simpleGetRequest.getBytes());
+        return new ByteArrayInputStream(request.getBytes());
     }
 }
