@@ -6,8 +6,4 @@ public class ResponseBuilder {
     public String okayWithEmptyBody() {
         return STATUS_CODE_OK + OUTPUT_END_OF_HEADERS + EMPTY_BODY_OUTPUT;
     }
-
-    public String okayWithNoBody() {
-        return STATUS_CODE_OK + OUTPUT_END_OF_HEADERS;
-    }
 }

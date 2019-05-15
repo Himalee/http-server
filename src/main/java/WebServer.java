@@ -33,7 +33,7 @@ public class WebServer {
         if (request.equals(SIMPLE_GET_REQUEST)) {
             responseHandler.respond(output, responseBuilder.okayWithEmptyBody());
         } else if (request.contains(SIMPLE_HEAD_REQUEST)) {
-            responseHandler.respond(output, responseBuilder.okayWithNoBody());
+            responseHandler.respond(output, responseBuilder.okayWithEmptyBody());
         }
         closeSocket(output);
     }
