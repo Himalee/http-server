@@ -9,14 +9,14 @@ public class WebServerTest {
 
     private int port = 1234;
     private MockServerSocketManager mockServerSocketManager;
-    private RequestHandler requestHandler = new RequestHandler();
+    private RequestReader requestReader = new RequestReader();
     private ResponseHandler responseHandler = new ResponseHandler();
     private ServerStatus mockWebServerStatus = new MockWebServerStatus();
 
     public WebServer buildServerSendRequest(String request) {
         CommunicationChannel mockServerCommunicationChannel = new MockServerCommunicationChannel(request);
         mockServerSocketManager = new MockServerSocketManager(mockServerCommunicationChannel);
-        return new WebServer(mockServerSocketManager, requestHandler, responseHandler, mockWebServerStatus);
+        return new WebServer(mockServerSocketManager, requestReader, responseHandler, mockWebServerStatus);
     }
 
     @Test
