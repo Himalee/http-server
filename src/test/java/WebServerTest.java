@@ -27,7 +27,7 @@ public class WebServerTest {
     }
 
     @Test
-    public void startWebServerGet200ResponseWithSimpleGetUrl() throws IOException {
+    public void startWebServerGet200ResponseWithGetRequestAndSimpleGetUrl() throws IOException {
         WebServer webServer = buildServerSendRequest("GET /simple_get HTTP/1.1");
         webServer.start(port);
         OutputStream response = mockServerSocketManager.acceptConnection().getOutputStream();
@@ -35,8 +35,16 @@ public class WebServerTest {
     }
 
     @Test
-    public void startWebServerGet200ResponseWithSimpleHeadUrl() throws IOException {
+    public void startWebServerGet200ResponseWithHeadRequestAndSimpleGetUrl() throws IOException {
         WebServer webServer = buildServerSendRequest("HEAD /simple_get HTTP/1.1");
+        webServer.start(port);
+        OutputStream response = mockServerSocketManager.acceptConnection().getOutputStream();
+        Assert.assertThat(response.toString(), containsString("HTTP/1.1 200 OK"));
+    }
+
+    @Test
+    public void startWebServerGet200ResponseWithHeadRequestAndGetWithBodyUrl() throws IOException {
+        WebServer webServer = buildServerSendRequest("HEAD /get_with_body HTTP/1.1");
         webServer.start(port);
         OutputStream response = mockServerSocketManager.acceptConnection().getOutputStream();
         Assert.assertThat(response.toString(), containsString("HTTP/1.1 200 OK"));
