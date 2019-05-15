@@ -12,31 +12,32 @@ public class WebServerTest {
     private RequestHandler requestHandler = new RequestHandler();
     private ResponseHandler responseHandler = new ResponseHandler();
     private ServerStatus mockWebServerStatus = new MockWebServerStatus();
-    private WebServer webServer;
 
-    public void setUp(String request) throws IOException {
+    public WebServer buildServerSendRequest(String request) {
         CommunicationChannel mockServerCommunicationChannel = new MockServerCommunicationChannel(request);
         mockServerSocketManager = new MockServerSocketManager(mockServerCommunicationChannel);
-        webServer = new WebServer(mockServerSocketManager, requestHandler, responseHandler, mockWebServerStatus);
-        webServer.start(port);
+        return new WebServer(mockServerSocketManager, requestHandler, responseHandler, mockWebServerStatus);
     }
 
     @Test
     public void startWebServerListenForConnections() throws IOException {
-        setUp("GET /simple_get HTTP/1.1");
+        WebServer webServer = buildServerSendRequest("GET /simple_get HTTP/1.1");
+        webServer.start(port);
         Assert.assertTrue(mockServerSocketManager.wasListenCalled());
     }
 
     @Test
     public void startWebServerGet200ResponseWithSimpleGetUrl() throws IOException {
-        setUp("GET /simple_get HTTP/1.1");
+        WebServer webServer = buildServerSendRequest("GET /simple_get HTTP/1.1");
+        webServer.start(port);
         OutputStream response = mockServerSocketManager.acceptConnection().getOutputStream();
         Assert.assertThat(response.toString(), containsString("HTTP/1.1 200 OK"));
     }
 
     @Test
     public void startWebServerGet200ResponseWithSimpleHeadUrl() throws IOException {
-        setUp("HEAD /simple_get HTTP/1.1");
+        WebServer webServer = buildServerSendRequest("HEAD /simple_get HTTP/1.1");
+        webServer.start(port);
         OutputStream response = mockServerSocketManager.acceptConnection().getOutputStream();
         Assert.assertThat(response.toString(), containsString("HTTP/1.1 200 OK"));
     }
