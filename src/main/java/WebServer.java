@@ -28,7 +28,7 @@ public class WebServer {
         serverCommunicationChannel = serverSocketManager.acceptConnection();
         OutputStream output = serverCommunicationChannel.getOutputStream();
         String request = request();
-        String response = getResponse(request);
+        String response = getResponse(new RequestParser(request));
         responseHandler.respond(output, response);
         closeSocket(output);
     }
@@ -41,11 +41,11 @@ public class WebServer {
         outputStream.close();
     }
 
-    private String getResponse(String request) {
+    private String getResponse(RequestParser requestParser) {
         StringBuilder response = new StringBuilder();
         List handlers = handlerAssembler.getAllHandlers();
         for (Object handler : handlers) {
-            response.append(((Handler)handler).handle(request));
+            response.append(((Handler)handler).handle(requestParser));
         }
         return response.toString();
     }
