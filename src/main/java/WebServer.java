@@ -27,21 +27,26 @@ public class WebServer {
     private void respond() throws IOException {
         serverCommunicationChannel = serverSocketManager.acceptConnection();
         OutputStream output = serverCommunicationChannel.getOutputStream();
-        responseBuilder = new ResponseBuilder();
         String request = request();
-        if (request.equals(SIMPLE_GET_REQUEST)) {
-            responseHandler.respond(output, responseBuilder.okayWithEmptyBody());
-        } else if (request.contains(SIMPLE_HEAD_REQUEST)) {
-            responseHandler.respond(output, responseBuilder.okayWithEmptyBody());
-        }
+        String response = getResponse(request);
+        responseHandler.respond(output, response);
         closeSocket(output);
     }
 
     private String request() throws IOException {
-        return requestHandler.read(serverCommunicationChannel.getInputStream());
+        return requestReader.read(serverCommunicationChannel.getInputStream());
     }
 
     private void closeSocket(OutputStream outputStream) throws IOException {
         outputStream.close();
+    }
+
+    private String getResponse(String request) {
+        StringBuilder response = new StringBuilder();
+        List handlers = handlerAssembler.getAllHandlers();
+        for (Object handler : handlers) {
+            response.append(((Handler)handler).handle(request));
+        }
+        return response.toString();
     }
 }

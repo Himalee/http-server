@@ -10,11 +10,4 @@ public class RequestReader {
         } while (inputStream.available() > 0);
         return result.toString();
     }
-
 }
-
-//method: "POST"
-//url: "simple_get"
-//httpprtoto: "HTTP"
-//headers: everything
-//body: "some body"
