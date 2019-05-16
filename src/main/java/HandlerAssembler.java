@@ -6,6 +6,7 @@ public class HandlerAssembler {
         List<Handler> handlers = new ArrayList<>();
         handlers.add(new SimpleGetHandler());
         handlers.add(new GetWithBodyHandler());
+        handlers.add(new MethodOptionsHandler());
         return handlers;
     }
 }

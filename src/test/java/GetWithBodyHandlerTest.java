@@ -26,7 +26,7 @@ public class GetWithBodyHandlerTest {
     }
 
     @Test
-    public void headRequestWithInvalidHttpMethodReturnsNoResponse() {
+    public void requestWithInvalidHttpMethodReturnsNoResponse() {
         String request = "GET /get_with_body HTTP/1.1";
         RequestParser requestParser = new RequestParser(request);
         Assert.assertEquals("", getWithBodyHandler.handle(requestParser));
