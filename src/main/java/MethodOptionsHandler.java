@@ -15,6 +15,7 @@ public class MethodOptionsHandler extends Handler {
 
     @Override
     public String buildResponse() {
-        return new ResponseBuilder().okayWithHeadersGetHeadOptions();
+        Response response = new ResponseBuilder().setStatusCode("HTTP/1.1 200 OK\r\n").setHeaders("Allow: GET, HEAD, OPTIONS\r\n\r\n").setBody("").build();
+        return response.getStatusCode() + response.getHeaders() + response.getBody();
     }
 }
