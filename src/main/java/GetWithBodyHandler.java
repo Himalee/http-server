@@ -7,7 +7,7 @@ public class GetWithBodyHandler implements Handler {
         StringBuilder response = new StringBuilder();
         boolean requestContainsValidHttpMethod = request.getHttpMethod().equals(HEAD_REQUEST);
         boolean requestContainsValidUrl = request.getUrl().equals(GET_WITH_BODY_URL);
-        if ((requestContainsValidUrl) && requestContainsValidHttpMethod) {
+        if (requestContainsValidUrl && requestContainsValidHttpMethod) {
             response.append(new ResponseBuilder().okayWithEmptyBody());
         }
         return response.toString();
