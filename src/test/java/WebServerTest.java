@@ -57,4 +57,12 @@ public class WebServerTest {
         OutputStream response = mockServerSocketManager.acceptConnection().getOutputStream();
         Assert.assertThat(response.toString(), containsString("HTTP/1.1 200 OK\r\nAllow: GET, HEAD, OPTIONS"));
     }
+
+    @Test
+    public void startWebServerGet200ResponseWithOptionsRequestAndMethodOptionsTwoUrl() throws IOException {
+        WebServer webServer = buildServerSendRequest("OPTIONS /method_options2 HTTP/1.1");
+        webServer.start(port);
+        OutputStream response = mockServerSocketManager.acceptConnection().getOutputStream();
+        Assert.assertThat(response.toString(), containsString("HTTP/1.1 200 OK\r\nAllow: GET, HEAD, OPTIONS, PUT, POST"));
+    }
 }

@@ -20,4 +20,9 @@ public class ResponseBuilderTest {
     public void buildResponseWithStatusCode200WithHeadersGetHeadOptionsAndEmptyBody() {
         Assert.assertEquals("HTTP/1.1 200 OK\r\nAllow: GET, HEAD, OPTIONS\r\n\r\n", responseBuilder.okayWithHeadersGetHeadOptions());
     }
+
+    @Test
+    public void buildResponseWithStatusCode200WithHeadersGetHeadOptionsPutPostAndEmptyBody() {
+        Assert.assertEquals("HTTP/1.1 200 OK\r\nAllow: GET, HEAD, OPTIONS, PUT, POST\r\n\r\n", responseBuilder.okayWithHeadersGetHeadOptionsPutPost());
+    }
 }
