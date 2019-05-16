@@ -25,4 +25,9 @@ public class ResponseBuilderTest {
     public void buildResponseWithStatusCode200WithHeadersGetHeadOptionsPutPostAndEmptyBody() {
         Assert.assertEquals("HTTP/1.1 200 OK\r\nAllow: GET, HEAD, OPTIONS, PUT, POST\r\n\r\n", responseBuilder.okayWithHeadersGetHeadOptionsPutPost());
     }
+
+    @Test
+    public void buildResponseWithStatusCode404() {
+        Assert.assertEquals("HTTP/1.1 404 Not Found\r\n\r\n", responseBuilder.notFound());
+    }
 }
