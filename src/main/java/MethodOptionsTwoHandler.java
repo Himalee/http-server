@@ -7,7 +7,7 @@ public class MethodOptionsTwoHandler implements Handler {
         StringBuilder response = new StringBuilder();
         boolean requestContainsValidHttpMethod = (request.getHttpMethod().equals(OPTIONS_REQUEST));
         boolean requestContainsValidUrl = request.getUrl().equals(METHOD_OPTIONS_TWO_URL);
-        if ((requestContainsValidUrl) && requestContainsValidHttpMethod) {
+        if (requestContainsValidUrl && requestContainsValidHttpMethod) {
             response.append(new ResponseBuilder().okayWithHeadersGetHeadOptionsPutPost());
         }
         return response.toString();
