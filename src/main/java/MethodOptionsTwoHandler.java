@@ -1,15 +1,20 @@
-public class MethodOptionsTwoHandler implements Handler {
+import java.util.Arrays;
+import java.util.List;
 
-    private static final String METHOD_OPTIONS_TWO_URL = "/method_options2";
-    private static final String OPTIONS_REQUEST = "OPTIONS";
+public class MethodOptionsTwoHandler extends Handler {
 
-    public String handle(RequestParser request) {
-        StringBuilder response = new StringBuilder();
-        boolean requestContainsValidHttpMethod = (request.getHttpMethod().equals(OPTIONS_REQUEST));
-        boolean requestContainsValidUrl = request.getUrl().equals(METHOD_OPTIONS_TWO_URL);
-        if (requestContainsValidUrl && requestContainsValidHttpMethod) {
-            response.append(new ResponseBuilder().okayWithHeadersGetHeadOptionsPutPost());
-        }
-        return response.toString();
+    @Override
+    public String url() {
+        return "/method_options2";
+    }
+
+    @Override
+    public List<String> httpMethods() {
+        return Arrays.asList("OPTIONS");
+    }
+
+    @Override
+    public String buildResponse() {
+        return new ResponseBuilder().okayWithHeadersGetHeadOptionsPutPost();
     }
 }

@@ -1,15 +1,20 @@
-public class MethodOptionsHandler implements Handler {
+import java.util.Arrays;
+import java.util.List;
 
-    private static final String METHOD_OPTIONS_URL = "/method_options";
-    private static final String OPTIONS_REQUEST = "OPTIONS";
+public class MethodOptionsHandler extends Handler {
 
-    public String handle(RequestParser request) {
-        StringBuilder response = new StringBuilder();
-        boolean requestContainsValidHttpMethod = (request.getHttpMethod().equals(OPTIONS_REQUEST));
-        boolean requestContainsValidUrl = request.getUrl().equals(METHOD_OPTIONS_URL);
-        if (requestContainsValidUrl && requestContainsValidHttpMethod) {
-            response.append(new ResponseBuilder().okayWithHeadersGetHeadOptions());
-        }
-        return response.toString();
+    @Override
+    public String url() {
+        return "/method_options";
+    }
+
+    @Override
+    public List<String> httpMethods() {
+        return Arrays.asList("OPTIONS");
+    }
+
+    @Override
+    public String buildResponse() {
+        return new ResponseBuilder().okayWithHeadersGetHeadOptions();
     }
 }
