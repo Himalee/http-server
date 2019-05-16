@@ -1,5 +1,4 @@
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.io.*;
@@ -10,26 +9,43 @@ public class WebServerTest {
 
     private int port = 1234;
     private MockServerSocketManager mockServerSocketManager;
-    private RequestHandler requestHandler = new RequestHandler();
-    private CommunicationChannel mockServerCommunicationChannel = new MockServerCommunicationChannel();
+    private RequestReader requestReader = new RequestReader();
     private ResponseHandler responseHandler = new ResponseHandler();
     private ServerStatus mockWebServerStatus = new MockWebServerStatus();
-    private WebServer webServer;
 
-    @Before
-    public void setUp() throws IOException {
+    public WebServer buildServerSendRequest(String request) {
+        CommunicationChannel mockServerCommunicationChannel = new MockServerCommunicationChannel(request);
         mockServerSocketManager = new MockServerSocketManager(mockServerCommunicationChannel);
-        webServer = new WebServer(mockServerSocketManager, requestHandler, responseHandler, mockWebServerStatus);
-        webServer.start(port);
+        return new WebServer(mockServerSocketManager, requestReader, responseHandler, mockWebServerStatus);
     }
 
     @Test
-    public void startWebServerListenForConnections() {
+    public void startWebServerListenForConnections() throws IOException {
+        WebServer webServer = buildServerSendRequest("GET /simple_get HTTP/1.1");
+        webServer.start(port);
         Assert.assertTrue(mockServerSocketManager.wasListenCalled());
     }
 
     @Test
-    public void startWebServerGet200ResponseWithSimpleGetUrl() {
+    public void startWebServerGet200ResponseWithGetRequestAndSimpleGetUrl() throws IOException {
+        WebServer webServer = buildServerSendRequest("GET /simple_get HTTP/1.1");
+        webServer.start(port);
+        OutputStream response = mockServerSocketManager.acceptConnection().getOutputStream();
+        Assert.assertThat(response.toString(), containsString("HTTP/1.1 200 OK"));
+    }
+
+    @Test
+    public void startWebServerGet200ResponseWithHeadRequestAndSimpleGetUrl() throws IOException {
+        WebServer webServer = buildServerSendRequest("HEAD /simple_get HTTP/1.1");
+        webServer.start(port);
+        OutputStream response = mockServerSocketManager.acceptConnection().getOutputStream();
+        Assert.assertThat(response.toString(), containsString("HTTP/1.1 200 OK"));
+    }
+
+    @Test
+    public void startWebServerGet200ResponseWithHeadRequestAndGetWithBodyUrl() throws IOException {
+        WebServer webServer = buildServerSendRequest("HEAD /get_with_body HTTP/1.1");
+        webServer.start(port);
         OutputStream response = mockServerSocketManager.acceptConnection().getOutputStream();
         Assert.assertThat(response.toString(), containsString("HTTP/1.1 200 OK"));
     }

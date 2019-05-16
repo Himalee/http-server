@@ -1,18 +1,18 @@
 import java.io.*;
+import java.util.List;
 
 public class WebServer {
 
     private SocketManager serverSocketManager;
-    private RequestHandler requestHandler;
+    private RequestReader requestReader;
     private ResponseHandler responseHandler;
-    private ResponseBuilder responseBuilder;
     private ServerStatus serverStatus;
     private CommunicationChannel serverCommunicationChannel;
-    private static final String SIMPLE_GET_REQUEST = "GET /simple_get HTTP/1.1";
+    private HandlerAssembler handlerAssembler = new HandlerAssembler();
 
-    public WebServer(SocketManager serverSocketManager, RequestHandler requestHandler, ResponseHandler responseHandler, ServerStatus serverStatus) {
+    public WebServer(SocketManager serverSocketManager, RequestReader requestReader, ResponseHandler responseHandler, ServerStatus serverStatus) {
         this.serverSocketManager = serverSocketManager;
-        this.requestHandler = requestHandler;
+        this.requestReader = requestReader;
         this.responseHandler = responseHandler;
         this.serverStatus = serverStatus;
     }
@@ -27,18 +27,26 @@ public class WebServer {
     private void respond() throws IOException {
         serverCommunicationChannel = serverSocketManager.acceptConnection();
         OutputStream output = serverCommunicationChannel.getOutputStream();
-        if (request().contains(SIMPLE_GET_REQUEST)) {
-            responseBuilder = new ResponseBuilder();
-            responseHandler.respond(output, responseBuilder.okayWithEmptyBody());
-        }
+        String request = request();
+        String response = getResponse(new RequestParser(request));
+        responseHandler.respond(output, response);
         closeSocket(output);
     }
 
     private String request() throws IOException {
-        return requestHandler.read(serverCommunicationChannel.getInputStream());
+        return requestReader.read(serverCommunicationChannel.getInputStream());
     }
 
     private void closeSocket(OutputStream outputStream) throws IOException {
         outputStream.close();
+    }
+
+    private String getResponse(RequestParser requestParser) {
+        StringBuilder response = new StringBuilder();
+        List handlers = handlerAssembler.getAllHandlers();
+        for (Object handler : handlers) {
+            response.append(((Handler)handler).handle(requestParser));
+        }
+        return response.toString();
     }
 }
