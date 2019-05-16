@@ -1,3 +1,18 @@
-public interface Handler {
-    String handle(RequestParser requestParser);
+import java.util.List;
+
+public abstract class Handler {
+
+    public final String handle(RequestParser request) {
+        StringBuilder response = new StringBuilder();
+        boolean requestContainsValidHttpMethod = httpMethods().contains(request.getHttpMethod());
+        boolean requestContainsValidUrl = request.getUrl().equals(url());
+        if ((requestContainsValidUrl) && requestContainsValidHttpMethod) {
+            response.append(buildResponse());
+        }
+        return response.toString();
+    }
+
+    public abstract String url();
+    public abstract List<String> httpMethods();
+    public abstract String buildResponse();
 }

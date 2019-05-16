@@ -8,7 +8,6 @@ public class WebServer {
     private ResponseHandler responseHandler;
     private ServerStatus serverStatus;
     private CommunicationChannel serverCommunicationChannel;
-    private HandlerAssembler handlerAssembler = new HandlerAssembler();
 
     public WebServer(SocketManager serverSocketManager, RequestReader requestReader, ResponseHandler responseHandler, ServerStatus serverStatus) {
         this.serverSocketManager = serverSocketManager;
@@ -43,7 +42,7 @@ public class WebServer {
 
     private String getResponse(RequestParser requestParser) {
         StringBuilder response = new StringBuilder();
-        List handlers = handlerAssembler.getAllHandlers();
+        List handlers = HandlerAssembler.GET_ALL_HANDLERS;
         for (Object handler : handlers) {
             response.append(((Handler)handler).handle(requestParser));
         }

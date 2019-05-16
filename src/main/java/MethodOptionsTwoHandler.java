@@ -1,20 +1,20 @@
 import java.util.Arrays;
 import java.util.List;
 
-public class GetWithBodyHandler extends Handler {
+public class MethodOptionsTwoHandler extends Handler {
 
     @Override
     public String url() {
-        return "/get_with_body";
+        return "/method_options2";
     }
 
     @Override
     public List<String> httpMethods() {
-        return Arrays.asList("HEAD");
+        return Arrays.asList("OPTIONS");
     }
 
     @Override
     public String buildResponse() {
-        return new ResponseBuilder().okayWithEmptyBody();
+        return new ResponseBuilder().okayWithHeadersGetHeadOptionsPutPost();
     }
 }
