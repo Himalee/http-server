@@ -30,4 +30,10 @@ public class ResponseBuilderTest {
     public void buildResponseWithStatusCode404() {
         Assert.assertEquals("HTTP/1.1 404 Not Found\r\n\r\n", responseBuilder.notFound());
     }
+
+    @Test
+    public void buildResponseWithStatusCode301AndLocationHeader() {
+        String uri = "http://0.0.0.0:5000/simple_get";
+        Assert.assertEquals("HTTP/1.1 301 Moved Permanently\r\nLocation: http://0.0.0.0:5000/simple_get\r\n\r\n", responseBuilder.redirectTo(uri));
+    }
 }
