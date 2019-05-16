@@ -65,4 +65,12 @@ public class WebServerTest {
         OutputStream response = mockServerSocketManager.acceptConnection().getOutputStream();
         Assert.assertThat(response.toString(), containsString("HTTP/1.1 200 OK\r\nAllow: GET, HEAD, OPTIONS, PUT, POST"));
     }
+
+    @Test
+    public void startWebServerGet404ResponseWithGetRequestAndNotFoundResourceUrl() throws IOException {
+        WebServer webServer = buildServerSendRequest("GET /not_found_resource HTTP/1.1");
+        webServer.start(port);
+        OutputStream response = mockServerSocketManager.acceptConnection().getOutputStream();
+        Assert.assertThat(response.toString(), containsString("HTTP/1.1 404 Not Found"));
+    }
 }
