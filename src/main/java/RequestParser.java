@@ -1,8 +1,12 @@
 public class RequestParser {
 
     private String request;
-    static final int GET_FIRST_ELEMENT = 0;
-    static final int GET_SECOND_ELEMENT = 1;
+    private static final int GET_FIRST_ELEMENT = 0;
+    private static final int GET_SECOND_ELEMENT = 1;
+    private static final String NEW_LINE = "\n";
+    private static final int LIMIT_OF_TWO = 2;
+    private static final String BLANK_SPACE = " ";
+
 
     public RequestParser(String request) {
         this.request = request;
@@ -17,7 +21,7 @@ public class RequestParser {
     }
 
     private String[] getRequestLine() {
-        String[] result = request.split("\n", 2);
-        return result[0].split(" ");
+        String[] result = request.split(NEW_LINE, LIMIT_OF_TWO);
+        return result[GET_FIRST_ELEMENT].split(BLANK_SPACE);
     }
 }
