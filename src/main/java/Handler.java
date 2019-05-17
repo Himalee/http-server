@@ -7,12 +7,12 @@ public abstract class Handler {
         boolean requestContainsValidHttpMethod = httpMethods().contains(request.getHttpMethod());
         boolean requestContainsValidUrl = request.getUrl().equals(url());
         if (requestContainsValidUrl && requestContainsValidHttpMethod) {
-            response.append(buildResponse());
+            response.append(buildResponse(request));
         }
         return response.toString();
     }
 
     public abstract String url();
     public abstract List<String> httpMethods();
-    public abstract String buildResponse();
+    public abstract String buildResponse(RequestParser request);
 }
