@@ -30,8 +30,7 @@ public class RequestParser {
         if (getHttpMethod().equals("POST")) {
             int lastLine = lines.length - 1;
             return lines[lastLine];
-        } else {
-            return "";
         }
+        return "";
     }
 }
