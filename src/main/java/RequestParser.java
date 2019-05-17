@@ -24,4 +24,14 @@ public class RequestParser {
         String[] result = request.split(NEW_LINE, LIMIT_OF_TWO);
         return result[GET_FIRST_ELEMENT].split(BLANK_SPACE);
     }
+
+    public String getBody() {
+        String[] lines = request.split(NEW_LINE);
+        if (getHttpMethod().equals("POST")) {
+            int lastLine = lines.length - 1;
+            return lines[lastLine];
+        } else {
+            return "";
+        }
+    }
 }
