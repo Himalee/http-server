@@ -15,6 +15,7 @@ public class SimpleGetHandler extends Handler {
 
     @Override
     public String buildResponse() {
-        return new ResponseBuilder().okayWithEmptyBody();
+        Response response = new ResponseBuilder().setStatusCode("HTTP/1.1 200 OK\r\n\r\n").setHeaders("").setBody("").build();
+        return response.getStatusCode() + response.getHeaders() + response.getBody();
     }
 }

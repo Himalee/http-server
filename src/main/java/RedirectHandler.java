@@ -1,11 +1,13 @@
 import java.util.Arrays;
 import java.util.List;
 
-public class NotFoundResourceHandler extends Handler {
+public class RedirectHandler extends Handler {
+
+    private static final String REDIRECT_URL = "http://127.0.0.1:5000/simple_get";
 
     @Override
     public String url() {
-        return "/not_found_resource";
+        return "/redirect";
     }
 
     @Override
@@ -15,7 +17,7 @@ public class NotFoundResourceHandler extends Handler {
 
     @Override
     public String buildResponse() {
-        Response response = new ResponseBuilder().setStatusCode("HTTP/1.1 404 Not Found\r\n\r\n").setHeaders("").setBody("").build();
+        Response response = new ResponseBuilder().setStatusCode("HTTP/1.1 301 Moved Permanently\r\n").setHeaders("Location: " + REDIRECT_URL + "\r\n\r\n").setBody("").build();
         return response.getStatusCode() + response.getHeaders() + response.getBody();
     }
 }

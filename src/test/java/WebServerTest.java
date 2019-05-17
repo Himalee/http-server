@@ -73,4 +73,12 @@ public class WebServerTest {
         OutputStream response = mockServerSocketManager.acceptConnection().getOutputStream();
         Assert.assertThat(response.toString(), containsString("HTTP/1.1 404 Not Found"));
     }
+
+    @Test
+    public void startWebServerGet301ResponseWithGetRequestAndRedirectUrl() throws IOException {
+        WebServer webServer = buildServerSendRequest("GET /redirect HTTP/1.1");
+        webServer.start(port);
+        OutputStream response = mockServerSocketManager.acceptConnection().getOutputStream();
+        Assert.assertThat(response.toString(), containsString("HTTP/1.1 301 Moved Permanently\r\nLocation: http://127.0.0.1:5000/simple_get"));
+    }
 }

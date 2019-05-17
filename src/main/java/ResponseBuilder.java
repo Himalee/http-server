@@ -1,26 +1,25 @@
 public class ResponseBuilder {
 
-    private static final String EMPTY_BODY_OUTPUT = "";
-    private static final String STATUS_CODE_OK = "HTTP/1.1 200 OK";
-    private static final String STATUS_CODE_NOT_FOUND = "HTTP/1.1 404 Not Found";
-    private static final String CRLF = "\r\n";
-    private static final String ALLOWED_HEADER = "Allow: ";
-    private static final String GET_HEAD_OPTIONS = "GET, HEAD, OPTIONS";
-    private static final String PUT_POST = ", PUT, POST";
+    private String statusCode;
+    private String headers;
+    private String body;
 
-    public String okayWithEmptyBody() {
-        return STATUS_CODE_OK + CRLF + CRLF + EMPTY_BODY_OUTPUT;
+    public ResponseBuilder setStatusCode(String statusCode) {
+        this.statusCode = statusCode;
+        return this;
     }
 
-    public String okayWithHeadersGetHeadOptions() {
-        return STATUS_CODE_OK + CRLF + ALLOWED_HEADER + GET_HEAD_OPTIONS + CRLF + CRLF + EMPTY_BODY_OUTPUT;
+    public ResponseBuilder setHeaders(String headers) {
+        this.headers = headers;
+        return this;
     }
 
-    public String okayWithHeadersGetHeadOptionsPutPost() {
-        return STATUS_CODE_OK + CRLF + ALLOWED_HEADER + GET_HEAD_OPTIONS + PUT_POST + CRLF + CRLF + EMPTY_BODY_OUTPUT;
+    public ResponseBuilder setBody(String body) {
+        this.body = body;
+        return this;
     }
 
-    public String notFound() {
-        return STATUS_CODE_NOT_FOUND + CRLF + CRLF;
+    public Response build() {
+        return new Response(statusCode, headers, body);
     }
 }

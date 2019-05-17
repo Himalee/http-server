@@ -26,7 +26,7 @@ public class NotFoundResourceHandlerTest {
     }
 
     @Test
-    public void getWithInvalidHttpMethodReturnsNoResponse() {
+    public void requestWithInvalidHttpMethodReturnsNoResponse() {
         String request = "HEAD /not_found_resource HTTP/1.1";
         RequestParser requestParser = new RequestParser(request);
         Assert.assertEquals("", notFoundResourceHandler.handle(requestParser));
