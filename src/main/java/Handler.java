@@ -6,7 +6,7 @@ public abstract class Handler {
         StringBuilder response = new StringBuilder();
         boolean requestContainsValidHttpMethod = httpMethods().contains(request.getHttpMethod());
         boolean requestContainsValidUrl = request.getUrl().equals(url());
-        if ((requestContainsValidUrl) && requestContainsValidHttpMethod) {
+        if (requestContainsValidUrl && requestContainsValidHttpMethod) {
             response.append(buildResponse());
         }
         return response.toString();
