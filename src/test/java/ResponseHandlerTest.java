@@ -1,3 +1,4 @@
+import Server.ResponseHandler;
 import org.junit.Assert;
 import org.junit.Test;
 

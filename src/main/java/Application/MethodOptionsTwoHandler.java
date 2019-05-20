@@ -1,11 +1,17 @@
+package Application;
+
+import Server.RequestParser;
+import Server.ResponseBuilder;
+import Server.Response;
+
 import java.util.Arrays;
 import java.util.List;
 
-public class MethodOptionsHandler extends Handler {
+public class MethodOptionsTwoHandler extends Handler {
 
     @Override
     public String url() {
-        return "/method_options";
+        return "/method_options2";
     }
 
     @Override
@@ -15,7 +21,7 @@ public class MethodOptionsHandler extends Handler {
 
     @Override
     public String buildResponse(RequestParser request) {
-        Response response = new ResponseBuilder().setStatusCode("HTTP/1.1 200 OK\r\n").setHeaders("Allow: GET, HEAD, OPTIONS\r\n\r\n").setBody("").build();
+        Response response = new ResponseBuilder().setStatusCode("HTTP/1.1 200 OK\r\n").setHeaders("Allow: GET, HEAD, OPTIONS, PUT, POST\r\n\r\n").setBody("").build();
         return response.getStatusCode() + response.getHeaders() + response.getBody();
     }
 }
