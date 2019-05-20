@@ -20,11 +20,6 @@ public class RequestParser {
         return getRequestLine()[GET_SECOND_ELEMENT];
     }
 
-    private String[] getRequestLine() {
-        String[] result = request.split(NEW_LINE, LIMIT_OF_TWO);
-        return result[GET_FIRST_ELEMENT].split(BLANK_SPACE);
-    }
-
     public String getBody() {
         String[] lines = request.split(NEW_LINE);
         if (getHttpMethod().equals("POST")) {
@@ -32,5 +27,10 @@ public class RequestParser {
             return lines[lastLine];
         }
         return "";
+    }
+
+    private String[] getRequestLine() {
+        String[] result = request.split(NEW_LINE, LIMIT_OF_TWO);
+        return result[GET_FIRST_ELEMENT].split(BLANK_SPACE);
     }
 }
