@@ -1,0 +1,2 @@
+[![Build Status](https://travis-ci.com/Himalee/http-server.svg?branch=master)](https://travis-ci.com/Himalee/http-server)
+[![Coverage Status](https://coveralls.io/repos/github/Himalee/http-server/badge.svg?branch=master)](https://coveralls.io/github/Himalee/http-server?branch=master)
