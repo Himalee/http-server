@@ -1,3 +1,5 @@
+import Application.GetWithBodyHandler;
+import Server.RequestParser;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,8 +29,15 @@ public class GetWithBodyHandlerTest {
 
     @Test
     public void requestWithInvalidHttpMethodReturnsNoResponse() {
-        String request = "GET /get_with_body HTTP/1.1";
+        String request = "OPTIONS /get_with_body HTTP/1.1";
         RequestParser requestParser = new RequestParser(request);
         Assert.assertEquals("", getWithBodyHandler.handle(requestParser));
+    }
+
+    @Test
+    public void getRequestWithGetWithBodyUrlReturns405MethodNotAllowedWithHeaders() {
+        String request = "GET /get_with_body HTTP/1.1";
+        RequestParser requestParser = new RequestParser(request);
+        Assert.assertEquals("HTTP/1.1 405 Method Not Allowed\r\nAllow: HEAD, OPTIONS\r\n\r\n", getWithBodyHandler.handle(requestParser));
     }
 }

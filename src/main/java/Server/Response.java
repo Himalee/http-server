@@ -1,3 +1,5 @@
+package Server;
+
 public class Response {
 
     private String statusCode;

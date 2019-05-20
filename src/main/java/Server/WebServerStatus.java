@@ -1,3 +1,5 @@
+package Server;
+
 public class WebServerStatus implements ServerStatus {
 
     private boolean keepAcceptingConnections = true;

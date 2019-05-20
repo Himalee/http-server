@@ -1,3 +1,7 @@
+package Application;
+
+import Server.RequestParser;
+
 import java.util.List;
 
 public abstract class Handler {

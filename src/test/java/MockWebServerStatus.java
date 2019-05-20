@@ -1,3 +1,5 @@
+import Server.ServerStatus;
+
 public class MockWebServerStatus implements ServerStatus {
 
     private boolean keepAcceptingConnections = true;

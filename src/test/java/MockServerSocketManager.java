@@ -1,3 +1,6 @@
+import Server.CommunicationChannel;
+import Server.SocketManager;
+
 public class MockServerSocketManager implements SocketManager {
 
     private boolean listenCalled = false;
