@@ -16,7 +16,7 @@ public class RedirectHandler extends Handler {
     }
 
     @Override
-    public String buildResponse() {
+    public String buildResponse(RequestParser request) {
         Response response = new ResponseBuilder().setStatusCode("HTTP/1.1 301 Moved Permanently\r\n").setHeaders("Location: " + REDIRECT_URL + "\r\n\r\n").setBody("").build();
         return response.getStatusCode() + response.getHeaders() + response.getBody();
     }

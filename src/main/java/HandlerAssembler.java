@@ -9,5 +9,6 @@ public class HandlerAssembler {
             new MethodOptionsHandler(),
             new MethodOptionsTwoHandler(),
             new NotFoundResourceHandler(),
-            new RedirectHandler());
+            new RedirectHandler(),
+            new EchoBodyHandler());
 }
