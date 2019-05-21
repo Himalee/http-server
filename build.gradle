@@ -4,6 +4,11 @@ plugins {
     id 'com.github.kt3k.coveralls' version '2.6.3'
 }
 
+task startServer(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'Server.ServerRunner'
+}
+
 jacocoTestReport {
     reports {
         xml.enabled = true // coveralls plugin depends on xml format report
