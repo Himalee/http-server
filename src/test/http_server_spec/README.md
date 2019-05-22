@@ -1,4 +1,4 @@
-# HTTP Server Spec
+# HTTP server Spec
 
 A minimal suite of acceptance tests for the HTTP server learning project.
 
