@@ -14,6 +14,14 @@ jacocoTestReport {
     }
 }
 
+test {
+    jacoco {
+        excludes = ['.*server.ServerCommunicationChannel.*',
+                    '.*server.ServerRunner.*',
+                    '.*server.ServerSocketManager.*']
+    }
+}
+
 group 'http-server'
 version '1.0-SNAPSHOT'
 
