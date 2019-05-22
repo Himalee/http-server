@@ -2,16 +2,14 @@ plugins {
     id 'java'
     id 'jacoco'
     id 'com.github.kt3k.coveralls' version '2.6.3'
+    id 'application'
 }
 
-task startServer(type: JavaExec) {
-    classpath = sourceSets.main.runtimeClasspath
-    main = 'Server.ServerRunner'
-}
+mainClassName = 'Server.ServerRunner'
 
 jacocoTestReport {
     reports {
-        xml.enabled = true // coveralls plugin depends on xml format report
+        xml.enabled = true
         html.enabled = true
     }
 }
