@@ -3,7 +3,7 @@ package handlers;
 import java.util.Arrays;
 import java.util.List;
 
-public class HandlerAssembler {
+public final class HandlerAssembler {
 
     public static final List<Handler> GET_ALL_HANDLERS = Arrays.asList(
             new SimpleGetHandler(),
