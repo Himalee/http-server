@@ -14,11 +14,15 @@ jacocoTestReport {
     }
 }
 
-test {
-    jacoco {
-        excludes = ['.*server.ServerCommunicationChannel.*',
-                    '.*server.ServerRunner.*',
-                    '.*server.ServerSocketManager.*']
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            excludes = [
+                    'server.ServerCommunicationChannel',
+                    'server.ServerRunner',
+                    'server.ServerSocketManager'
+            ]
+        }
     }
 }
 
@@ -34,3 +38,5 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
+
+check.dependsOn jacocoTestCoverageVerification
