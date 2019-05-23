@@ -23,6 +23,12 @@ public class WebServerTest {
         return new WebServer(mockServerSocketManager, requestReader, responseHandler, mockWebServerStatus);
     }
 
+    public OutputStream serverResponse(String request) throws IOException {
+        WebServer webServer = buildServerSendRequest(request);
+        webServer.start(port);
+        return mockServerSocketManager.acceptConnection().getOutputStream();
+    }
+
     @Test
     public void startWebServerListenForConnections() throws IOException {
         WebServer webServer = buildServerSendRequest("GET /simple_get HTTP/1.1");
@@ -32,57 +38,43 @@ public class WebServerTest {
 
     @Test
     public void startWebServerGet200ResponseWithGetRequestAndSimpleGetUrl() throws IOException {
-        WebServer webServer = buildServerSendRequest("GET /simple_get HTTP/1.1");
-        webServer.start(port);
-        OutputStream response = mockServerSocketManager.acceptConnection().getOutputStream();
-        Assert.assertThat(response.toString(), containsString("HTTP/1.1 200 OK"));
+        String request = "GET /simple_get HTTP/1.1";
+        Assert.assertThat(serverResponse(request).toString(), containsString("HTTP/1.1 200 OK"));
     }
 
     @Test
     public void startWebServerGet200ResponseWithHeadRequestAndSimpleGetUrl() throws IOException {
-        WebServer webServer = buildServerSendRequest("HEAD /simple_get HTTP/1.1");
-        webServer.start(port);
-        OutputStream response = mockServerSocketManager.acceptConnection().getOutputStream();
-        Assert.assertThat(response.toString(), containsString("HTTP/1.1 200 OK"));
+        String request = "HEAD /simple_get HTTP/1.1";
+        Assert.assertThat(serverResponse(request).toString(), containsString("HTTP/1.1 200 OK"));
     }
 
     @Test
     public void startWebServerGet200ResponseWithHeadRequestAndGetWithBodyUrl() throws IOException {
-        WebServer webServer = buildServerSendRequest("HEAD /get_with_body HTTP/1.1");
-        webServer.start(port);
-        OutputStream response = mockServerSocketManager.acceptConnection().getOutputStream();
-        Assert.assertThat(response.toString(), containsString("HTTP/1.1 200 OK"));
+        String request = "HEAD /get_with_body HTTP/1.1";
+        Assert.assertThat(serverResponse(request).toString(), containsString("HTTP/1.1 200 OK"));
     }
 
     @Test
     public void startWebServerGet200ResponseWithOptionsRequestAndMethodOptionsUrl() throws IOException {
-        WebServer webServer = buildServerSendRequest("OPTIONS /method_options HTTP/1.1");
-        webServer.start(port);
-        OutputStream response = mockServerSocketManager.acceptConnection().getOutputStream();
-        Assert.assertThat(response.toString(), containsString("HTTP/1.1 200 OK\r\nAllow: GET, HEAD, OPTIONS"));
+        String request = "OPTIONS /method_options HTTP/1.1";
+        Assert.assertThat(serverResponse(request).toString(), containsString("HTTP/1.1 200 OK\r\nAllow: GET, HEAD, OPTIONS"));
     }
 
     @Test
     public void startWebServerGet200ResponseWithOptionsRequestAndMethodOptionsTwoUrl() throws IOException {
-        WebServer webServer = buildServerSendRequest("OPTIONS /method_options2 HTTP/1.1");
-        webServer.start(port);
-        OutputStream response = mockServerSocketManager.acceptConnection().getOutputStream();
-        Assert.assertThat(response.toString(), containsString("HTTP/1.1 200 OK\r\nAllow: GET, HEAD, OPTIONS, PUT, POST"));
+        String request = "OPTIONS /method_options2 HTTP/1.1";
+        Assert.assertThat(serverResponse(request).toString(), containsString("HTTP/1.1 200 OK\r\nAllow: GET, HEAD, OPTIONS, PUT, POST"));
     }
 
     @Test
     public void startWebServerGet404ResponseWithGetRequestAndNotFoundResourceUrl() throws IOException {
-        WebServer webServer = buildServerSendRequest("GET /not_found_resource HTTP/1.1");
-        webServer.start(port);
-        OutputStream response = mockServerSocketManager.acceptConnection().getOutputStream();
-        Assert.assertThat(response.toString(), containsString("HTTP/1.1 404 Not Found"));
+        String request = "GET /not_found_resource HTTP/1.1";
+        Assert.assertThat(serverResponse(request).toString(), containsString("HTTP/1.1 404 Not Found"));
     }
 
     @Test
     public void startWebServerGet301ResponseWithGetRequestAndRedirectUrl() throws IOException {
-        WebServer webServer = buildServerSendRequest("GET /redirect HTTP/1.1");
-        webServer.start(port);
-        OutputStream response = mockServerSocketManager.acceptConnection().getOutputStream();
-        Assert.assertThat(response.toString(), containsString("HTTP/1.1 301 Moved Permanently\r\nLocation: http://127.0.0.1:5000/simple_get"));
+        String request = "GET /redirect HTTP/1.1";
+        Assert.assertThat(serverResponse(request).toString(), containsString("HTTP/1.1 301 Moved Permanently\r\nLocation: http://127.0.0.1:5000/simple_get"));
     }
 }
