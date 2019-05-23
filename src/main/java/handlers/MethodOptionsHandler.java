@@ -3,6 +3,7 @@ package handlers;
 import server.request.RequestParser;
 import server.response.ResponseBuilder;
 import server.response.Response;
+import server.HTTPMethod;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,7 +17,7 @@ public class MethodOptionsHandler extends Handler {
 
     @Override
     public List<String> httpMethods() {
-        return Arrays.asList("OPTIONS");
+        return Arrays.asList(HTTPMethod.OPTIONS);
     }
 
     @Override

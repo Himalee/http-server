@@ -1,5 +1,7 @@
 package server.request;
 
+import server.HTTPMethod;
+
 public class RequestParser {
 
     private String request;
@@ -24,7 +26,7 @@ public class RequestParser {
 
     public String getBody() {
         String[] lines = request.split(NEW_LINE);
-        if (getHttpMethod().equals("POST")) {
+        if (getHttpMethod().equals(HTTPMethod.POST)) {
             int lastLine = lines.length - 1;
             return lines[lastLine];
         }
