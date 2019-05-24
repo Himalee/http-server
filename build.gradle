@@ -38,7 +38,6 @@ jacocoTestCoverageVerification {
             limit {
                 counter = 'LINE'
                 value = 'COVEREDRATIO'
-                minimum = 1.0
             }
             excludes = [
                     'server.ServerCommunicationChannel',
