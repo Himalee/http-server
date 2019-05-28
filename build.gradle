@@ -20,32 +20,9 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
-jacoco {
-    toolVersion = "0.8.2"
-}
-
 jacocoTestReport {
     reports {
         xml.enabled = true
         html.enabled = true
     }
 }
-
-jacocoTestCoverageVerification {
-    violationRules {
-        rule {
-            element = 'CLASS'
-            limit {
-                counter = 'LINE'
-                value = 'COVEREDRATIO'
-            }
-            excludes = [
-                    'server.ServerCommunicationChannel',
-                    'server.ServerRunner',
-                    'server.ServerSocketManager'
-            ]
-        }
-    }
-}
-
-check.dependsOn jacocoTestCoverageVerification
