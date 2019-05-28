@@ -1,13 +1,10 @@
 package server;
 
-import handlers.Handler;
-import handlers.HandlerAssembler;
 import server.request.RequestParser;
 import server.request.RequestReader;
 import server.response.ResponseHandler;
 
 import java.io.*;
-import java.util.List;
 
 public class WebServer {
 
@@ -35,7 +32,7 @@ public class WebServer {
         serverCommunicationChannel = serverSocketManager.acceptConnection();
         OutputStream output = serverCommunicationChannel.getOutputStream();
         String request = request();
-        String response = getResponse(new RequestParser(request));
+        String response = new RouteHandler().buildResponse(new RequestParser(request));
         responseHandler.respond(output, response);
         closeSocket(output);
     }
@@ -46,14 +43,5 @@ public class WebServer {
 
     private void closeSocket(OutputStream outputStream) throws IOException {
         outputStream.close();
-    }
-
-    private String getResponse(RequestParser requestParser) {
-        StringBuilder response = new StringBuilder();
-        List handlers = HandlerAssembler.GET_ALL_HANDLERS;
-        for (Object handler : handlers) {
-            response.append(((Handler)handler).handle(requestParser));
-        }
-        return response.toString();
     }
 }
