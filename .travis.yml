@@ -1,4 +1,13 @@
 language: java
 
+script:
+  - ./gradlew build
+  - ./gradlew run &
+  - cd src/test/http_server_spec
+  - bundle install
+  - bundle exec spinach
+  - kill %1
+
 after_success:
+- cd ../../..
 - ./gradlew test jacocoTestReport coveralls
