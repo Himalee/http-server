@@ -26,3 +26,15 @@ jacocoTestReport {
         html.enabled = true
     }
 }
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'server.ServerRunner'
+        )
+    }
+}
+
+task stage {
+    dependsOn build
+}
