@@ -2,6 +2,10 @@
 
 A minimal suite of acceptance tests for the HTTP server learning project.
 
+### Requirements 
+
+Ruby (2.5)
+
 ### Installation
 
 Install [Bundler](https://bundler.io/), and then run `bundle install` to clone dependencies.
