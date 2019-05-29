@@ -21,8 +21,7 @@ public class EchoBodyHandler extends Handler {
     }
 
     @Override
-    public String buildResponse(Request request) {
-        Response response = new ResponseBuilder().setStatusCode("HTTP/1.1 200 OK\r\n\r\n").setHeaders("").setBody(request.getBody()).build();
-        return response.getStatusCode() + response.getHeaders() + response.getBody();
+    public Response buildResponse(Request request) {
+        return new ResponseBuilder().setStatusCode("HTTP/1.1 200 OK\r\n\r\n").setHeaders("").setBody(request.getBody()).build();
     }
 }

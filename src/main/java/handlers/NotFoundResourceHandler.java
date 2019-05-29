@@ -12,17 +12,16 @@ public class NotFoundResourceHandler extends Handler {
 
     @Override
     public String url() {
-        return "/not_found_resource";
+        return null;
     }
 
     @Override
     public List<String> httpMethods() {
-        return Arrays.asList(HTTPMethod.GET);
+        return Arrays.asList(HTTPMethod.GET, HTTPMethod.HEAD, HTTPMethod.OPTIONS, HTTPMethod.POST);
     }
 
     @Override
-    public String buildResponse(Request request) {
-        Response response = new ResponseBuilder().setStatusCode("HTTP/1.1 404 Not Found\r\n\r\n").setHeaders("").setBody("").build();
-        return response.getStatusCode() + response.getHeaders() + response.getBody();
+    public Response buildResponse(Request request) {
+        return new ResponseBuilder().setStatusCode("HTTP/1.1 404 Not Found\r\n\r\n").setHeaders("").setBody("").build();
     }
 }

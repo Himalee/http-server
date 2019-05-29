@@ -18,18 +18,36 @@ public class MethodOptionsTwoHandlerHandlerTest {
     @Test
     public void optionsRequestWithMethodOptionsTwoUrlReturns200OkayWithHeadersAndEmptyBody() {
         Request request = new RequestParser("OPTIONS /method_options2 HTTP/1.1").buildRequest();
-        Assert.assertEquals("HTTP/1.1 200 OK\r\nAllow: GET, HEAD, OPTIONS, PUT, POST\r\n\r\n", methodOptionsTwoHandler.handle(request));
+        Assert.assertEquals("HTTP/1.1 200 OK\r\nAllow: GET, HEAD, OPTIONS, PUT, POST\r\n\r\n", methodOptionsTwoHandler.handle(request).format());
     }
 
     @Test
-    public void optionsRequestWithInvalidUrlReturnsNoResponse() {
-        Request request = new RequestParser("OPTIONS /method_option3 HTTP/1.1").buildRequest();
-        Assert.assertEquals("", methodOptionsTwoHandler.handle(request));
+    public void headRequestWithMethodOptionsTwoUrlReturns200OkayWithHeadersAndEmptyBody() {
+        Request request = new RequestParser("HEAD /method_options2 HTTP/1.1").buildRequest();
+        Assert.assertEquals("HTTP/1.1 200 OK\r\nAllow: GET, HEAD, OPTIONS, PUT, POST\r\n\r\n", methodOptionsTwoHandler.handle(request).format());
     }
 
     @Test
-    public void requestWithInvalidHttpMethodReturnsNoResponse() {
-        Request request = new RequestParser("GET /get_with_body HTTP/1.1").buildRequest();
-        Assert.assertEquals("", methodOptionsTwoHandler.handle(request));
+    public void getRequestWithMethodOptionsTwoUrlReturns200OkayWithHeadersAndEmptyBody() {
+        Request request = new RequestParser("GET /method_options2 HTTP/1.1").buildRequest();
+        Assert.assertEquals("HTTP/1.1 200 OK\r\nAllow: GET, HEAD, OPTIONS, PUT, POST\r\n\r\n", methodOptionsTwoHandler.handle(request).format());
+    }
+
+    @Test
+    public void putRequestWithMethodOptionsTwoUrlReturns200OkayWithHeadersAndEmptyBody() {
+        Request request = new RequestParser("PUT /method_options2 HTTP/1.1").buildRequest();
+        Assert.assertEquals("HTTP/1.1 200 OK\r\nAllow: GET, HEAD, OPTIONS, PUT, POST\r\n\r\n", methodOptionsTwoHandler.handle(request).format());
+    }
+
+    @Test
+    public void postRequestWithMethodOptionsTwoUrlReturns200OkayWithHeadersAndEmptyBody() {
+        Request request = new RequestParser("POST /method_options2 HTTP/1.1").buildRequest();
+        Assert.assertEquals("HTTP/1.1 200 OK\r\nAllow: GET, HEAD, OPTIONS, PUT, POST\r\n\r\n", methodOptionsTwoHandler.handle(request).format());
+    }
+
+    @Test
+    public void deleteRequestWithMethodOptionsTwoUrlReturns405MethodNotAllowedWithHeaders() {
+        Request request = new RequestParser("DELETE /method_options2 HTTP/1.1").buildRequest();
+        Assert.assertEquals("HTTP/1.1 405 Method Not Allowed\r\nAllow: GET, HEAD, OPTIONS, PUT, POST\r\n\r\n", methodOptionsTwoHandler.handle(request).format());
     }
 }

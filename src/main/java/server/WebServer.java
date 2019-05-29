@@ -3,6 +3,7 @@ package server;
 import server.request.Request;
 import server.request.RequestParser;
 import server.request.RequestReader;
+import server.response.Response;
 import server.response.ResponseHandler;
 
 import java.io.*;
@@ -33,7 +34,7 @@ public class WebServer {
         serverCommunicationChannel = serverSocketManager.acceptConnection();
         OutputStream output = serverCommunicationChannel.getOutputStream();
         Request request = new RequestParser(request()).buildRequest();
-        String response = new RouteHandler().buildResponse(request);
+        Response response = new RouteHandler().getResponse(request);
         responseHandler.respond(output, response);
         closeSocket(output);
     }

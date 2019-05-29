@@ -23,4 +23,8 @@ public class Response {
     public String getBody() {
         return body;
     }
+
+    public String format() {
+        return getStatusCode() + getHeaders() + getBody();
+    }
 }

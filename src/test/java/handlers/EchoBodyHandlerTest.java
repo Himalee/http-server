@@ -18,18 +18,12 @@ public class EchoBodyHandlerTest {
     @Test
     public void postRequestWithEchoBodyUrlReturns200OkayWithBody() {
         Request request = new RequestParser("POST /echo_body HTTP/1.1\nsome body").buildRequest();
-        Assert.assertEquals("HTTP/1.1 200 OK\r\n\r\nsome body", echoBodyHandler.handle(request));
+        Assert.assertEquals("HTTP/1.1 200 OK\r\n\r\nsome body", echoBodyHandler.handle(request).format());
     }
 
     @Test
-    public void postRequestWithInvalidEchoBodyUrlReturnsNoResponse() {
-        Request request = new RequestParser("POST /echo_bodys HTTP/1.1\nsome body").buildRequest();
-        Assert.assertEquals("", echoBodyHandler.handle(request));
-    }
-
-    @Test
-    public void requestWithInvalidHttpMethodReturnsNoResponse() {
+    public void getRequestWithEchoBodyUrlReturns200OkayWithBody() {
         Request request = new RequestParser("GET /echo_body HTTP/1.1\nsome body").buildRequest();
-        Assert.assertEquals("", echoBodyHandler.handle(request));
+        Assert.assertEquals("HTTP/1.1 405 Method Not Allowed\r\nAllow: POST\r\n\r\n", echoBodyHandler.handle(request).format());
     }
 }
