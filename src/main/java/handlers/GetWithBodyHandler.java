@@ -1,6 +1,6 @@
 package handlers;
 
-import server.request.RequestParser;
+import server.request.Request;
 import server.response.ResponseBuilder;
 import server.response.Response;
 import server.HTTPMethod;
@@ -23,7 +23,7 @@ public class GetWithBodyHandler extends Handler {
     }
 
     @Override
-    public String buildResponse(RequestParser request) {
+    public String buildResponse(Request request) {
         if (request.getHttpMethod().equals("HEAD")) {
             response = new ResponseBuilder().setStatusCode("HTTP/1.1 200 OK\r\n\r\n").setHeaders("").setBody("").build();
         } else if (request.getHttpMethod().equals("GET")) {

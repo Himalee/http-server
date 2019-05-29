@@ -1,5 +1,6 @@
 package server;
 
+import server.request.Request;
 import server.request.RequestParser;
 import server.request.RequestReader;
 import server.response.ResponseHandler;
@@ -31,8 +32,9 @@ public class WebServer {
     private void respond() throws IOException {
         serverCommunicationChannel = serverSocketManager.acceptConnection();
         OutputStream output = serverCommunicationChannel.getOutputStream();
-        String request = request();
-        String response = new RouteHandler().buildResponse(new RequestParser(request));
+        String rawRequest = request();
+        Request request = new RequestParser(rawRequest).buildRequest();
+        String response = new RouteHandler().buildResponse(request);
         responseHandler.respond(output, response);
         closeSocket(output);
     }

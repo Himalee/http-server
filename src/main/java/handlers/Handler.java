@@ -1,12 +1,12 @@
 package handlers;
 
-import server.request.RequestParser;
+import server.request.Request;
 
 import java.util.List;
 
 public abstract class Handler {
 
-    public final String handle(RequestParser request) {
+    public final String handle(Request request) {
         StringBuilder response = new StringBuilder();
         boolean requestContainsValidHttpMethod = httpMethods().contains(request.getHttpMethod());
         boolean requestContainsValidUrl = request.getUrl().equals(url());
@@ -18,5 +18,5 @@ public abstract class Handler {
 
     public abstract String url();
     public abstract List<String> httpMethods();
-    public abstract String buildResponse(RequestParser request);
+    public abstract String buildResponse(Request request);
 }

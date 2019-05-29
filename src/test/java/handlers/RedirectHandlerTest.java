@@ -1,5 +1,6 @@
 package handlers;
 
+import server.request.Request;
 import server.request.RequestParser;
 import org.junit.Assert;
 import org.junit.Before;
@@ -16,22 +17,19 @@ public class RedirectHandlerTest {
 
     @Test
     public void getRequestWithNotFoundResourceUrlReturns404NotFound() {
-        String request = "GET /redirect HTTP/1.1";
-        RequestParser requestParser =  new RequestParser(request);
-        Assert.assertEquals("HTTP/1.1 301 Moved Permanently\r\nLocation: http://127.0.0.1:5000/simple_get\r\n\r\n", redirectHandler.handle(requestParser));
+        Request request = new RequestParser("GET /redirect HTTP/1.1").buildRequest();
+        Assert.assertEquals("HTTP/1.1 301 Moved Permanently\r\nLocation: http://127.0.0.1:5000/simple_get\r\n\r\n", redirectHandler.handle(request));
     }
 
     @Test
     public void getRequestWithInvalidUrlReturnsNoResponse() {
-        String request = "GET /redirects HTTP/1.1";
-        RequestParser requestParser = new RequestParser(request);
-        Assert.assertEquals("", redirectHandler.handle(requestParser));
+        Request request = new RequestParser("GET /redirects HTTP/1.1").buildRequest();
+        Assert.assertEquals("", redirectHandler.handle(request));
     }
 
     @Test
     public void requestWithInvalidHttpMethodReturnsNoResponse() {
-        String request = "HEAD /redirect HTTP/1.1";
-        RequestParser requestParser = new RequestParser(request);
-        Assert.assertEquals("", redirectHandler.handle(requestParser));
+        Request request = new RequestParser("HEAD /redirect HTTP/1.1").buildRequest();
+        Assert.assertEquals("", redirectHandler.handle(request));
     }
 }

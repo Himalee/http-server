@@ -1,5 +1,6 @@
 package handlers;
 
+import server.request.Request;
 import server.request.RequestParser;
 import org.junit.Assert;
 import org.junit.Before;
@@ -16,22 +17,19 @@ public class NotFoundResourceHandlerTest {
 
     @Test
     public void getRequestWithNotFoundResourceUrlReturns404NotFound() {
-        String request = "GET /not_found_resource HTTP/1.1";
-        RequestParser requestParser =  new RequestParser(request);
-        Assert.assertEquals("HTTP/1.1 404 Not Found\r\n\r\n", notFoundResourceHandler.handle(requestParser));
+        Request request = new RequestParser("GET /not_found_resource HTTP/1.1").buildRequest();
+        Assert.assertEquals("HTTP/1.1 404 Not Found\r\n\r\n", notFoundResourceHandler.handle(request));
     }
 
     @Test
     public void getRequestWithInvalidUrlReturnsNoResponse() {
-        String request = "GET /not_found_resources HTTP/1.1";
-        RequestParser requestParser = new RequestParser(request);
-        Assert.assertEquals("", notFoundResourceHandler.handle(requestParser));
+        Request request = new RequestParser("GET /not_found_resources HTTP/1.1").buildRequest();
+        Assert.assertEquals("", notFoundResourceHandler.handle(request));
     }
 
     @Test
     public void requestWithInvalidHttpMethodReturnsNoResponse() {
-        String request = "HEAD /not_found_resource HTTP/1.1";
-        RequestParser requestParser = new RequestParser(request);
-        Assert.assertEquals("", notFoundResourceHandler.handle(requestParser));
+        Request request = new RequestParser("HEAD /not_found_resource HTTP/1.1").buildRequest();
+        Assert.assertEquals("", notFoundResourceHandler.handle(request));
     }
 }
