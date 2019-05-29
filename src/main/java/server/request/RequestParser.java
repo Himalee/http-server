@@ -16,21 +16,25 @@ public class RequestParser {
         this.request = request;
     }
 
-    public String getHttpMethod() {
+    public String httpMethod() {
         return getRequestLine()[GET_FIRST_ELEMENT];
     }
 
-    public String getUrl() {
+    public String url() {
         return getRequestLine()[GET_SECOND_ELEMENT];
     }
 
-    public String getBody() {
+    public String body() {
         String[] lines = request.split(NEW_LINE);
-        if (getHttpMethod().equals(HTTPMethod.POST)) {
+        if (httpMethod().equals(HTTPMethod.POST)) {
             int lastLine = lines.length - 1;
             return lines[lastLine];
         }
         return "";
+    }
+
+    public Request buildRequest() {
+        return new Request(httpMethod(), url(), body());
     }
 
     private String[] getRequestLine() {

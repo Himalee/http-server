@@ -1,5 +1,6 @@
 package handlers;
 
+import server.request.Request;
 import server.request.RequestParser;
 import org.junit.Assert;
 import org.junit.Before;
@@ -16,22 +17,31 @@ public class NotFoundResourceHandlerTest {
 
     @Test
     public void getRequestWithNotFoundResourceUrlReturns404NotFound() {
-        String request = "GET /not_found_resource HTTP/1.1";
-        RequestParser requestParser =  new RequestParser(request);
-        Assert.assertEquals("HTTP/1.1 404 Not Found\r\n\r\n", notFoundResourceHandler.handle(requestParser));
+        Request request = new RequestParser("GET /not_found_resource HTTP/1.1").buildRequest();
+        Assert.assertEquals("HTTP/1.1 404 Not Found\r\n\r\n", notFoundResourceHandler.handle(request).format());
     }
 
     @Test
-    public void getRequestWithInvalidUrlReturnsNoResponse() {
-        String request = "GET /not_found_resources HTTP/1.1";
-        RequestParser requestParser = new RequestParser(request);
-        Assert.assertEquals("", notFoundResourceHandler.handle(requestParser));
+    public void headRequestWithNotFoundResourceUrlReturns404NotFound() {
+        Request request = new RequestParser("HEAD /not_found_resource HTTP/1.1").buildRequest();
+        Assert.assertEquals("HTTP/1.1 404 Not Found\r\n\r\n", notFoundResourceHandler.handle(request).format());
     }
 
     @Test
-    public void requestWithInvalidHttpMethodReturnsNoResponse() {
-        String request = "HEAD /not_found_resource HTTP/1.1";
-        RequestParser requestParser = new RequestParser(request);
-        Assert.assertEquals("", notFoundResourceHandler.handle(requestParser));
+    public void optionsRequestWithNotFoundResourceUrlReturns404NotFound() {
+        Request request = new RequestParser("OPTIONS /not_found_resource HTTP/1.1").buildRequest();
+        Assert.assertEquals("HTTP/1.1 404 Not Found\r\n\r\n", notFoundResourceHandler.handle(request).format());
+    }
+
+    @Test
+    public void postRequestWithNotFoundResourceUrlReturns404NotFound() {
+        Request request = new RequestParser("POST /not_found_resource HTTP/1.1").buildRequest();
+        Assert.assertEquals("HTTP/1.1 404 Not Found\r\n\r\n", notFoundResourceHandler.handle(request).format());
+    }
+
+    @Test
+    public void getRequestWithRandomUrlReturns404NotFound() {
+        Request request = new RequestParser("GET /dan_is_cool HTTP/1.1").buildRequest();
+        Assert.assertEquals("HTTP/1.1 404 Not Found\r\n\r\n", notFoundResourceHandler.handle(request).format());
     }
 }

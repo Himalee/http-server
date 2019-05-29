@@ -30,24 +30,24 @@ public class RequestParserTest {
     @Test
     public void separateHttpMethodFromRequestLine() {
         setUpPostRequest();
-        Assert.assertEquals("POST", requestParser.getHttpMethod());
+        Assert.assertEquals("POST", requestParser.httpMethod());
     }
 
     @Test
     public void separateUrlFromRequestLine() {
         setUpPostRequest();
-        Assert.assertEquals("/echo_body", requestParser.getUrl());
+        Assert.assertEquals("/echo_body", requestParser.url());
     }
 
     @Test
     public void separateBodyFromPostRequest() {
         setUpPostRequest();
-        Assert.assertEquals("some body", requestParser.getBody());
+        Assert.assertEquals("some body", requestParser.body());
     }
 
     @Test
     public void getRequestReturnsNoBody() {
         setUpGetRequest();
-        Assert.assertEquals("", requestParser.getBody());
+        Assert.assertEquals("", requestParser.body());
     }
 }

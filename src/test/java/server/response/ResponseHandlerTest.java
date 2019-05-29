@@ -11,9 +11,9 @@ public class ResponseHandlerTest {
     public void outputStreamWriteResponseMessage() throws IOException {
         ResponseHandler responseHandler = new ResponseHandler();
         ByteArrayOutputStream output = new ByteArrayOutputStream();
-        String responseMessage = "hello world";
-        responseHandler.respond(output, responseMessage);
+        Response response = new Response("hello ", "world ", "goodbye");
+        responseHandler.respond(output, response);
         byte[] byteArray = output.toByteArray();
-        Assert.assertEquals("hello world", new String(byteArray));
+        Assert.assertEquals("hello world goodbye", new String(byteArray));
     }
 }

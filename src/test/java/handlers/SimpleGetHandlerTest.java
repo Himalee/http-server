@@ -1,5 +1,6 @@
 package handlers;
 
+import server.request.Request;
 import server.request.RequestParser;
 import org.junit.Assert;
 import org.junit.Before;
@@ -16,29 +17,19 @@ public class SimpleGetHandlerTest {
 
     @Test
     public void getRequestWithSimpleGetUrlReturns200OkayWithEmptyBody() {
-        String request = "GET /simple_get HTTP/1.1";
-        RequestParser requestParser =  new RequestParser(request);
-        Assert.assertEquals("HTTP/1.1 200 OK\r\n\r\n", simpleGetHandler.handle(requestParser));
+        Request request = new RequestParser("GET /simple_get HTTP/1.1").buildRequest();
+        Assert.assertEquals("HTTP/1.1 200 OK\r\n\r\n", simpleGetHandler.handle(request).format());
     }
 
     @Test
     public void headRequestWithSimpleGetUrlReturns200OkayWithEmptyBody() {
-        String request = "HEAD /simple_get HTTP/1.1";
-        RequestParser requestParser = new RequestParser(request);
-        Assert.assertEquals("HTTP/1.1 200 OK\r\n\r\n", simpleGetHandler.handle(requestParser));
+        Request request = new RequestParser("HEAD /simple_get HTTP/1.1").buildRequest();
+        Assert.assertEquals("HTTP/1.1 200 OK\r\n\r\n", simpleGetHandler.handle(request).format());
     }
 
     @Test
-    public void getRequestWithInvalidUrlReturnsNoResponse() {
-        String request = "GET /simple_gets HTTP/1.1";
-        RequestParser requestParser = new RequestParser(request);
-        Assert.assertEquals("", simpleGetHandler.handle(requestParser));
-    }
-
-    @Test
-    public void requestWithInvalidHttpMethodReturnsNoResponse() {
-        String request = "POST /simple_gets HTTP/1.1";
-        RequestParser requestParser = new RequestParser(request);
-        Assert.assertEquals("", simpleGetHandler.handle(requestParser));
+    public void postRequestWithSimpleGetUrlReturns405MethodNotAllowedWithHeaders() {
+        Request request = new RequestParser("POST /simple_get HTTP/1.1").buildRequest();
+        Assert.assertEquals("HTTP/1.1 405 Method Not Allowed\r\nAllow: GET, HEAD\r\n\r\n", simpleGetHandler.handle(request).format());
     }
 }

@@ -1,6 +1,6 @@
 package handlers;
 
-import server.request.RequestParser;
+import server.request.Request;
 import server.response.ResponseBuilder;
 import server.response.Response;
 import server.HTTPMethod;
@@ -17,12 +17,11 @@ public class MethodOptionsTwoHandler extends Handler {
 
     @Override
     public List<String> httpMethods() {
-        return Arrays.asList(HTTPMethod.OPTIONS);
+        return Arrays.asList(HTTPMethod.GET, HTTPMethod.HEAD, HTTPMethod.OPTIONS, HTTPMethod.PUT, HTTPMethod.POST);
     }
 
     @Override
-    public String buildResponse(RequestParser request) {
-        Response response = new ResponseBuilder().setStatusCode("HTTP/1.1 200 OK\r\n").setHeaders("Allow: GET, HEAD, OPTIONS, PUT, POST\r\n\r\n").setBody("").build();
-        return response.getStatusCode() + response.getHeaders() + response.getBody();
+    public Response buildResponse(Request request) {
+        return new ResponseBuilder().setStatusCode("HTTP/1.1 200 OK\r\n").setHeaders("Allow: GET, HEAD, OPTIONS, PUT, POST\r\n\r\n").setBody("").build();
     }
 }

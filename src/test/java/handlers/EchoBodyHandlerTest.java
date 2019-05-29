@@ -1,5 +1,6 @@
 package handlers;
 
+import server.request.Request;
 import server.request.RequestParser;
 import org.junit.Assert;
 import org.junit.Before;
@@ -16,22 +17,13 @@ public class EchoBodyHandlerTest {
 
     @Test
     public void postRequestWithEchoBodyUrlReturns200OkayWithBody() {
-        String request = "POST /echo_body HTTP/1.1\nsome body";
-        RequestParser requestParser =  new RequestParser(request);
-        Assert.assertEquals("HTTP/1.1 200 OK\r\n\r\nsome body", echoBodyHandler.handle(requestParser));
+        Request request = new RequestParser("POST /echo_body HTTP/1.1\nsome body").buildRequest();
+        Assert.assertEquals("HTTP/1.1 200 OK\r\n\r\nsome body", echoBodyHandler.handle(request).format());
     }
 
     @Test
-    public void postRequestWithInvalidEchoBodyUrlReturnsNoResponse() {
-        String request = "POST /echo_bodys HTTP/1.1\nsome body";
-        RequestParser requestParser = new RequestParser(request);
-        Assert.assertEquals("", echoBodyHandler.handle(requestParser));
-    }
-
-    @Test
-    public void requestWithInvalidHttpMethodReturnsNoResponse() {
-        String request = "GET /echo_body HTTP/1.1\nsome body";
-        RequestParser requestParser = new RequestParser(request);
-        Assert.assertEquals("", echoBodyHandler.handle(requestParser));
+    public void getRequestWithEchoBodyUrlReturns200OkayWithBody() {
+        Request request = new RequestParser("GET /echo_body HTTP/1.1\nsome body").buildRequest();
+        Assert.assertEquals("HTTP/1.1 405 Method Not Allowed\r\nAllow: POST\r\n\r\n", echoBodyHandler.handle(request).format());
     }
 }

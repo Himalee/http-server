@@ -77,4 +77,10 @@ public class WebServerTest {
         String request = "GET /redirect HTTP/1.1";
         Assert.assertThat(serverResponse(request).toString(), containsString("HTTP/1.1 301 Moved Permanently\r\nLocation: http://127.0.0.1:5000/simple_get"));
     }
+
+    @Test
+    public void startWebServerGet404ResponseWithUnknownUrl() throws IOException {
+        String request = "GET / HTTP/1.1";
+        Assert.assertThat(serverResponse(request).toString(), containsString("HTTP/1.1 404 Not Found"));
+    }
 }

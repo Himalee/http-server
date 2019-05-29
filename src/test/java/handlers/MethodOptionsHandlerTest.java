@@ -1,5 +1,6 @@
 package handlers;
 
+import server.request.Request;
 import server.request.RequestParser;
 import org.junit.Assert;
 import org.junit.Before;
@@ -16,22 +17,25 @@ public class MethodOptionsHandlerTest {
 
     @Test
     public void optionsRequestWithMethodOptionsUrlReturns200OkayWithHeadersAndEmptyBody() {
-        String request = "OPTIONS /method_options HTTP/1.1";
-        RequestParser requestParser =  new RequestParser(request);
-        Assert.assertEquals("HTTP/1.1 200 OK\r\nAllow: GET, HEAD, OPTIONS\r\n\r\n", methodOptionsHandler.handle(requestParser));
+        Request request = new RequestParser("OPTIONS /method_options HTTP/1.1").buildRequest();
+        Assert.assertEquals("HTTP/1.1 200 OK\r\nAllow: GET, HEAD, OPTIONS\r\n\r\n", methodOptionsHandler.handle(request).format());
     }
 
     @Test
-    public void optionsRequestWithInvalidUrlReturnsNoResponse() {
-        String request = "OPTIONS /method_optionss HTTP/1.1";
-        RequestParser requestParser = new RequestParser(request);
-        Assert.assertEquals("", methodOptionsHandler.handle(requestParser));
+    public void getRequestWithMethodOptionsUrlReturns200OkayWithHeadersAndEmptyBody() {
+        Request request = new RequestParser("GET /method_options HTTP/1.1").buildRequest();
+        Assert.assertEquals("HTTP/1.1 200 OK\r\nAllow: GET, HEAD, OPTIONS\r\n\r\n", methodOptionsHandler.handle(request).format());
     }
 
     @Test
-    public void requestWithInvalidHttpMethodReturnsNoResponse() {
-        String request = "GET /method_options HTTP/1.1";
-        RequestParser requestParser = new RequestParser(request);
-        Assert.assertEquals("", methodOptionsHandler.handle(requestParser));
+    public void headRequestWithMethodOptionsUrlReturns200OkayWithHeadersAndEmptyBody() {
+        Request request = new RequestParser("HEAD /method_options HTTP/1.1").buildRequest();
+        Assert.assertEquals("HTTP/1.1 200 OK\r\nAllow: GET, HEAD, OPTIONS\r\n\r\n", methodOptionsHandler.handle(request).format());
+    }
+
+    @Test
+    public void postRequestWithMethodOptionsUrlReturns405MethodNotAllowedWithHeaders() {
+        Request request = new RequestParser("POST /method_options HTTP/1.1").buildRequest();
+        Assert.assertEquals("HTTP/1.1 405 Method Not Allowed\r\nAllow: GET, HEAD, OPTIONS\r\n\r\n", methodOptionsHandler.handle(request).format());
     }
 }

@@ -1,5 +1,6 @@
 package handlers;
 
+import server.request.Request;
 import server.request.RequestParser;
 import org.junit.Assert;
 import org.junit.Before;
@@ -16,29 +17,19 @@ public class GetWithBodyHandlerTest {
 
     @Test
     public void headRequestWithGetWithBodyUrlReturns200OkayWithEmptyBody() {
-        String request = "HEAD /get_with_body HTTP/1.1";
-        RequestParser requestParser =  new RequestParser(request);
-        Assert.assertEquals("HTTP/1.1 200 OK\r\n\r\n", getWithBodyHandler.handle(requestParser));
+        Request request = new RequestParser("HEAD /get_with_body HTTP/1.1").buildRequest();
+        Assert.assertEquals("HTTP/1.1 200 OK\r\n\r\n", getWithBodyHandler.handle(request).format());
     }
 
     @Test
-    public void headRequestWithInvalidUrlReturnsNoResponse() {
-        String request = "HEAD /get_with_bodys HTTP/1.1";
-        RequestParser requestParser = new RequestParser(request);
-        Assert.assertEquals("", getWithBodyHandler.handle(requestParser));
-    }
-
-    @Test
-    public void requestWithInvalidHttpMethodReturnsNoResponse() {
-        String request = "OPTIONS /get_with_body HTTP/1.1";
-        RequestParser requestParser = new RequestParser(request);
-        Assert.assertEquals("", getWithBodyHandler.handle(requestParser));
+    public void optionsRequestWithGetWithBodyUrlReturns200OkayWithEmptyBody() {
+        Request request = new RequestParser("OPTIONS /get_with_body HTTP/1.1").buildRequest();
+        Assert.assertEquals("HTTP/1.1 200 OK\r\n\r\n", getWithBodyHandler.handle(request).format());
     }
 
     @Test
     public void getRequestWithGetWithBodyUrlReturns405MethodNotAllowedWithHeaders() {
-        String request = "GET /get_with_body HTTP/1.1";
-        RequestParser requestParser = new RequestParser(request);
-        Assert.assertEquals("HTTP/1.1 405 Method Not Allowed\r\nAllow: HEAD, OPTIONS\r\n\r\n", getWithBodyHandler.handle(requestParser));
+        Request request = new RequestParser("GET /get_with_body HTTP/1.1").buildRequest();
+        Assert.assertEquals("HTTP/1.1 405 Method Not Allowed\r\nAllow: HEAD, OPTIONS\r\n\r\n", getWithBodyHandler.handle(request).format());
     }
 }
