@@ -8,7 +8,6 @@ public class RequestParser {
     private static final int GET_FIRST_ELEMENT = 0;
     private static final int GET_SECOND_ELEMENT = 1;
     private static final String NEW_LINE = "\n";
-    private static final int LIMIT_OF_TWO = 2;
     private static final String BLANK_SPACE = " ";
 
 
@@ -21,7 +20,11 @@ public class RequestParser {
     }
 
     public String url() {
-        return getRequestLine()[GET_SECOND_ELEMENT];
+        try {
+            return getRequestLine()[GET_SECOND_ELEMENT];
+        } catch (Exception ArrayIndexOutOfBoundsException) {
+            return "";
+        }
     }
 
     public String body() {
@@ -38,7 +41,7 @@ public class RequestParser {
     }
 
     private String[] getRequestLine() {
-        String[] result = request.split(NEW_LINE, LIMIT_OF_TWO);
+        String[] result = request.split(NEW_LINE);
         return result[GET_FIRST_ELEMENT].split(BLANK_SPACE);
     }
 }
