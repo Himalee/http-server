@@ -12,6 +12,6 @@ public class ServerRunner {
         ResponseHandler responseHandler = new ResponseHandler();
         ServerStatus serverStatus = new WebServerStatus();
         WebServer webServer = new WebServer(serverSocketManager, requestReader, responseHandler, serverStatus);
-        webServer.start(5000);
+        webServer.start(Integer.parseInt(System.getenv("PORT")));
     }
 }
