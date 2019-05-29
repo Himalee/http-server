@@ -32,8 +32,7 @@ public class WebServer {
     private void respond() throws IOException {
         serverCommunicationChannel = serverSocketManager.acceptConnection();
         OutputStream output = serverCommunicationChannel.getOutputStream();
-        String rawRequest = request();
-        Request request = new RequestParser(rawRequest).buildRequest();
+        Request request = new RequestParser(request()).buildRequest();
         String response = new RouteHandler().buildResponse(request);
         responseHandler.respond(output, response);
         closeSocket(output);
