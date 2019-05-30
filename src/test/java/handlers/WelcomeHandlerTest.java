@@ -18,13 +18,17 @@ public class WelcomeHandlerTest {
     @Test
     public void getRequestWithEmptyUrlReturns200OkayWithBody() {
         Request request = new RequestParser("GET / HTTP/1.1").buildRequest();
-        Assert.assertEquals("HTTP/1.1 200 OK\r\n\r\n<!DOCTYPE html> <html> <body> <h1> Himalee's HTTP Server </h1> </body> </html>", welcomeHandler.handle(request).format());
+        Assert.assertEquals("HTTP/1.1 200 OK\r\n\r\n<!DOCTYPE html> <html> " +
+                "<head> <title>Himalee's HTTP Server</title> </head> " +
+                "<body> <h1> Himalee's HTTP Server </h1> </body> </html>", welcomeHandler.handle(request).format());
     }
 
     @Test
     public void headRequestWithEmptyUrlReturns200OkayWithBody() {
         Request request = new RequestParser("HEAD / HTTP/1.1").buildRequest();
-        Assert.assertEquals("HTTP/1.1 200 OK\r\n\r\n<!DOCTYPE html> <html> <body> <h1> Himalee's HTTP Server </h1> </body> </html>", welcomeHandler.handle(request).format());
+        Assert.assertEquals("HTTP/1.1 200 OK\r\n\r\n<!DOCTYPE html> <html> " +
+                "<head> <title>Himalee's HTTP Server</title> </head> " +
+                "<body> <h1> Himalee's HTTP Server </h1> </body> </html>", welcomeHandler.handle(request).format());
     }
 
     @Test

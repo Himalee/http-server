@@ -25,6 +25,8 @@ public class WelcomeHandler extends Handler {
         return new ResponseBuilder()
                 .setStatusCode("HTTP/1.1 200 OK\r\n\r\n")
                 .setHeaders("")
-                .setBody("<!DOCTYPE html> <html> <body> <h1> Himalee's HTTP Server </h1> </body> </html>").build();
+                .setBody("<!DOCTYPE html> <html> " +
+                        "<head> <title>Himalee's HTTP Server</title> </head> " +
+                        "<body> <h1> Himalee's HTTP Server </h1> </body> </html>").build();
     }
 }
