@@ -24,9 +24,10 @@ This is a HTTP server built to pass these [specifications](https://github.com/8t
 
 1. Clone the repository.
 2. In your terminal, navigate into the repository.
-3. Build the app, and run the unit tests by running `$ ./gradlew clean build`.
-4. Start the server by running `$ ./gradlew run`.
-5. Kill the server with `$ ctrl-c`.
+3. Run shell script by running `$ . ./set_up.sh`
+4. Build the app, and run the unit tests by running `$ ./gradlew clean build`.
+5. Start the server by running `$ ./gradlew run`.
+6. Kill the server with `$ ctrl-c`.
 
 #### Run acceptance tests
 
