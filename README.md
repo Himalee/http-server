@@ -29,6 +29,20 @@ This is a HTTP server built to pass these [specifications](https://github.com/8t
 5. Start the server by running `$ ./gradlew run`.
 6. Kill the server with `$ ctrl-c`.
 
+#### Features
+
+| Request | Response |
+| --- | --- |
+| GET request to "/simple_get" | status code 200 + empty body |
+| HEAD request to "/simple_get" | status code 200 + empty body |
+| HEAD request to "/get_with_body" | status code 200 + empty body |
+| GET request to "/get_with_body" | status code 405 + allowed headers of HEAD, OPTIONS + empty body |
+| GET request to "/not_found_resource" | status code 404 |
+| OPTIONS request to "/method_options" | status code 200 + allowed headers of GET, HEAD, and OPTIONS + empty body |
+| OPTIONS request to "/method_options2" | status code 200 + allowed headers of GET, HEAD, OPTIONS, PUT and POST + empty body |
+| POST with a body to "/echo_body" | status code 200 + body of request |
+| GET request to "/redirect" | status code 301 + location header with the "http://127.0.0.1:5000/simple_get" URI + empty body |
+
 #### Run acceptance tests
 
 1. Start the server by running `$ ./gradlew run`.
