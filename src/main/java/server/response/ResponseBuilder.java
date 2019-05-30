@@ -6,7 +6,7 @@ public class ResponseBuilder {
     private String headers;
     private String body;
 
-    public ResponseBuilder setStatusCode(String statusCode) {
+    public ResponseBuilder setStatusLine(String statusCode) {
         this.statusCode = statusCode;
         return this;
     }

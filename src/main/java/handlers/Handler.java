@@ -21,6 +21,6 @@ public abstract class Handler {
     public abstract Response buildResponse(Request request);
 
     private Response methodNotAllowedResponse() {
-        return new ResponseBuilder().setStatusCode("HTTP/1.1 405 Method Not Allowed\r\n").setHeaders("Allow: " + String.join(", ", this.httpMethods()) + "\r\n\r\n").setBody("").build();
+        return new ResponseBuilder().setStatusLine("HTTP/1.1 405 Method Not Allowed\r\n").setHeaders("Allow: " + String.join(", ", this.httpMethods()) + "\r\n\r\n").setBody("").build();
     }
 }

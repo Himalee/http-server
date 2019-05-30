@@ -23,7 +23,7 @@ public class WelcomeHandler extends Handler {
     @Override
     public Response buildResponse(Request request) {
         return new ResponseBuilder()
-                .setStatusCode("HTTP/1.1 200 OK\r\n\r\n")
+                .setStatusLine("HTTP/1.1 200 OK\r\n\r\n")
                 .setHeaders("")
                 .setBody("<!DOCTYPE html> <html> " +
                         "<head> <title>Himalee's HTTP Server</title> </head> " +
