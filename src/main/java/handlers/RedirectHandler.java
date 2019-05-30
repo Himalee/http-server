@@ -10,7 +10,7 @@ import java.util.List;
 
 public class RedirectHandler extends Handler {
 
-    private static final String REDIRECT_URL = "http://127.0.0.1:" + System.getenv("PORT") + "/simple_get";
+    private static final String REDIRECT_URL = System.getenv("REDIRECT_URL_HOST") + System.getenv("PORT") + "/simple_get";
 
     @Override
     public String url() {
@@ -24,6 +24,6 @@ public class RedirectHandler extends Handler {
 
     @Override
     public Response buildResponse(Request request) {
-        return new ResponseBuilder().setStatusCode("HTTP/1.1 301 Moved Permanently\r\n").setHeaders("Location: " + REDIRECT_URL + "\r\n\r\n").setBody("").build();
+        return new ResponseBuilder().setStatusLine("HTTP/1.1 301 Moved Permanently\r\n").setHeaders("Location: " + REDIRECT_URL + "\r\n\r\n").setBody("").build();
     }
 }

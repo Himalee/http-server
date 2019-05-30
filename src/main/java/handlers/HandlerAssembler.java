@@ -12,5 +12,6 @@ public final class HandlerAssembler {
             new MethodOptionsTwoHandler(),
             new NotFoundResourceHandler(),
             new RedirectHandler(),
-            new EchoBodyHandler());
+            new EchoBodyHandler(),
+            new WelcomeHandler());
 }
