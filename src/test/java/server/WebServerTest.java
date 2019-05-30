@@ -80,7 +80,13 @@ public class WebServerTest {
 
     @Test
     public void startWebServerGet404ResponseWithUnknownUrl() throws IOException {
-        String request = "GET / HTTP/1.1";
+        String request = "GET /unknown_url HTTP/1.1";
         Assert.assertThat(serverResponse(request).toString(), containsString("HTTP/1.1 404 Not Found"));
+    }
+
+    @Test
+    public void startWebServerGet200ResponseWithEmptyUrl() throws IOException {
+        String request = "GET / HTTP/1.1";
+        Assert.assertThat(serverResponse(request).toString(), containsString("HTTP/1.1 200 OK"));
     }
 }
