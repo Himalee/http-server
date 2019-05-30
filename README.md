@@ -4,6 +4,7 @@
 # HTTP Server
 
 This is a HTTP server built to pass these [specifications](https://github.com/8thlight/apprenticeship_syllabus/blob/master/crafter/code_projects/http_server_part_1.md).
+[Deployed](https://mysterious-retreat-84427.herokuapp.com/) using Heroku. 
 
 #### How it works
 
