@@ -27,6 +27,8 @@ public class WelcomeHandler extends Handler {
                 .setHeaders("")
                 .setBody("<!DOCTYPE html> <html> " +
                         "<head> <title>Himalee's HTTP Server</title> </head> " +
-                        "<body> <h1> Himalee's HTTP Server </h1> </body> </html>").build();
+                        "<body> <h1> Himalee's HTTP Server </h1> </body> " +
+                        "<p>Running instructions and code <a href=\"https://github.com/Himalee/http-server\">here. </a></p> " +
+                        "</html>").build();
     }
 }

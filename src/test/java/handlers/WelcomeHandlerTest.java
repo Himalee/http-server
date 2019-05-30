@@ -20,7 +20,9 @@ public class WelcomeHandlerTest {
         Request request = new RequestParser("GET / HTTP/1.1").buildRequest();
         Assert.assertEquals("HTTP/1.1 200 OK\r\n\r\n<!DOCTYPE html> <html> " +
                 "<head> <title>Himalee's HTTP Server</title> </head> " +
-                "<body> <h1> Himalee's HTTP Server </h1> </body> </html>", welcomeHandler.handle(request).format());
+                "<body> <h1> Himalee's HTTP Server </h1> </body> " +
+                "<p>Running instructions and code <a href=\"https://github.com/Himalee/http-server\">here. </a></p> " +
+                "</html>", welcomeHandler.handle(request).format());
     }
 
     @Test
@@ -28,7 +30,9 @@ public class WelcomeHandlerTest {
         Request request = new RequestParser("HEAD / HTTP/1.1").buildRequest();
         Assert.assertEquals("HTTP/1.1 200 OK\r\n\r\n<!DOCTYPE html> <html> " +
                 "<head> <title>Himalee's HTTP Server</title> </head> " +
-                "<body> <h1> Himalee's HTTP Server </h1> </body> </html>", welcomeHandler.handle(request).format());
+                "<body> <h1> Himalee's HTTP Server </h1> </body> " +
+                "<p>Running instructions and code <a href=\"https://github.com/Himalee/http-server\">here. </a></p> " +
+                "</html>", welcomeHandler.handle(request).format());
     }
 
     @Test
