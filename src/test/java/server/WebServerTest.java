@@ -75,7 +75,7 @@ public class WebServerTest {
     @Test
     public void startWebServerGet301ResponseWithGetRequestAndRedirectUrl() throws IOException {
         String request = "GET /redirect HTTP/1.1";
-        Assert.assertThat(serverResponse(request).toString(), containsString("HTTP/1.1 301 Moved Permanently\r\nLocation: http://127.0.0.1:" + System.getenv("PORT") + "/simple_get"));
+        Assert.assertThat(serverResponse(request).toString(), containsString("HTTP/1.1 301 Moved Permanently\r\nLocation: " + System.getenv("REDIRECT_URL_HOST") + System.getenv("PORT") + "/simple_get"));
     }
 
     @Test
