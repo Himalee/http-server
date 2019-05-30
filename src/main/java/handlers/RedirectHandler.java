@@ -10,7 +10,7 @@ import java.util.List;
 
 public class RedirectHandler extends Handler {
 
-    private static final String REDIRECT_URL = System.getenv("REDIRECT_URL_HOST") + System.getenv("PORT") + "/simple_get";
+    private static final String REDIRECT_URL = System.getenv("REDIRECT_URL");
 
     @Override
     public String url() {

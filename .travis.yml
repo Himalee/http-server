@@ -2,7 +2,7 @@ language: java
 
 script:
   - export PORT=5000
-  - export REDIRECT_URL_HOST="http://127.0.0.1:"
+  - export REDIRECT_URL="http://127.0.0.1:5000/simple_get"
   - ./gradlew build
   - ./gradlew run &
   - cd src/test/http_server_spec
